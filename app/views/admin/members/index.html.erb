@@ -1,0 +1,19 @@
+<h1>Admin Site</h1>
+<%= link_to 'Nuevo Socio', new_admin_member_path %>
+
+<table>
+  <tr>
+    <td>Rut</td>
+    <td>Número de socio</td>
+    <td colspan="3">Acciones</td>
+  </tr>
+  <% @members.each do |m| %>
+    <tr>
+      <td><%= m.rut %></td>
+      <td><%= m.membership_number %></td>
+      <td><%= link_to 'Ver', admin_member_path(m) %></td>
+      <td><%= link_to 'Editar', edit_admin_member_path(m) %></td>
+      <td><%= link_to 'Eliminar', admin_member_path(m), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>

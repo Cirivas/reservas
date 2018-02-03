@@ -7,6 +7,8 @@ class Aeroplane < ApplicationRecord
   validates :flying_time, presence: true, length: { is: 10 }
   validates :state, presence: true
 
+  has_and_belongs_to_many :users
+
   def available_hours
     next_revision.to_i - flying_time.to_i
   end

@@ -67,7 +67,7 @@
 
 <p>
   <%= f.label :license_type, 'Tipo de licencia' %>
-  <%= f.text_field :license_type %>
+  <%= f.select(:license_type, [['APA', 'APA'], ['PPA', 'PPA'], ['PCA','PCA'], ['PTLA', 'PTLA'], ['Instructor', 'Instructor']]) %>
 </p>
 
 <p>
@@ -76,18 +76,22 @@
 </p>
 
 <p>
+  <%= f.label :aeroplane_ids, 'Material habilitado' %>
+  <%= f.collection_select(:aeroplane_ids, Aeroplane.all, :id, :plane_type, { include_hidden: false } , { :multiple => true}) %>
+</p>
+<p>
   <%= f.label :user_role, 'Permiso de sistema' %>
-  <%= f.number_field :user_role %>
+  <%= f.select(:user_role, [['Usuario', 0], ['Administrador', 1]]) %>
 </p>
 
 <p>
   <%= f.label :membership_type, 'Tipo de socio' %>
-  <%= f.text_field :membership_type %>
+  <%= f.select(:membership_type, [['Vuelo', 'Vuelo'], ['Cooperativo', 'Cooperativo']]) %>
 </p>
 
 <p>
   <%= f.label :membership_state, 'Estado de socio' %>
-  <%= f.text_field :membership_state %> 
+  <%= f.select(:membership_state, [['En vuelo', 1], ['Fuera de vuelo', 0], ['Inactivo', -1]]) %> 
 </p>
 
 <%= f.submit %>

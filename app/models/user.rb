@@ -10,12 +10,14 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 25 }
   validates :last_name, presence: true, length: { maximum: 25 }
   validates :address, presence: true, length: { maximum: 50 }
-  validates :phone, presence: true, length: { is: 12 }
-  validates :country, presence: true, { maximum: 20 }
+  validates :phone, presence: true, length: { is: 9 }
+  validates :country, presence: true, length: { maximum: 20 }
   validates :birthdate, presence: true
   validates :license_type, presence: true
-  validates :license_number, presence: true, { is: 9 }
+  validates :license_number, presence: true, length: { is: 9 }
   validates :user_role, presence: true
   validates :membership_type, presence: true
   validates :membership_state, presence: true
+
+  has_and_belongs_to_many :aeroplanes
 end

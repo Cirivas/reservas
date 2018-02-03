@@ -16,7 +16,7 @@ class Admin::MembersController < ApplicationController
       flash[:success] = "Socio creado correctamente"
       redirect_to admin_member_path(@member)
     else
-      redirect_to new_admin_member_path
+      render action: 'new'
     end
   end
 
@@ -31,6 +31,7 @@ class Admin::MembersController < ApplicationController
 
   # GET /admin/members/:id
   def show
+    @aeroplanes = @member.aeroplanes
   end
 
   # PATCH/PUT /admin/members/:id
@@ -44,13 +45,19 @@ class Admin::MembersController < ApplicationController
     if @member.update_attributes(member_params)
       flash[:sucess] = "Socio actualizado correctamente"
       redirect_to admin_member_path(@member)
-    else 
-      redirect_to edit_admin_member_path(@member)
+    else
+      render action: 'edit' 
     end
   end
 
   # DELETE /admin/members/:id
   def destroy
+    if @member.destroy
+      flash[:success] = "Socio eliminado correctamente"
+    else
+      flash[:error] = "No se pudo eliminar el socio"
+    end
+    redirect_to admin_members_path
   end
 
   private
@@ -60,7 +67,7 @@ class Admin::MembersController < ApplicationController
     end
 
     def member_params
-      params.require(:user).permit(:rut, :membership_number, :name, :last_name, :email, :password, :password_confirmation, :address, :phone, :country, :birthdate, :license_type, :license_number, :user_role, :membership_type, :membership_state)
+      params.require(:user).permit(:rut, :membership_number, :name, :last_name, :email, :password, :password_confirmation, :address, :phone, :country, :birthdate, :license_type, :license_number, :user_role, :membership_type, :membership_state, :aeroplane_ids => [])
     end
 
 end

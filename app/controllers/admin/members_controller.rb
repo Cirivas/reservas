@@ -1,4 +1,4 @@
-class Admin::MembersController < ActionController::Base
+class Admin::MembersController < ApplicationController
   
   before_action :set_member, only: [:edit, :update, :show, :destroy]
 
@@ -13,9 +13,9 @@ class Admin::MembersController < ActionController::Base
     @member = User.new(member_params)
 
     if @member.save
+      flash[:success] = "Socio creado correctamente"
       redirect_to admin_member_path(@member)
     else
-      flash[:error] = @member.errors.messages
       redirect_to new_admin_member_path
     end
   end
@@ -42,9 +42,9 @@ class Admin::MembersController < ActionController::Base
     end
     
     if @member.update_attributes(member_params)
+      flash[:sucess] = "Socio actualizado correctamente"
       redirect_to admin_member_path(@member)
     else 
-      flash[:error] = @member.errors.messages
       redirect_to edit_admin_member_path(@member)
     end
   end

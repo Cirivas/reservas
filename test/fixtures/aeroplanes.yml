@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  plate: MyString
+  brand: MyString
+  next_revision: MyString
+  flying_time: MyString
+  state: 1
+
+two:
+  plate: MyString
+  brand: MyString
+  next_revision: MyString
+  flying_time: MyString
+  state: 1

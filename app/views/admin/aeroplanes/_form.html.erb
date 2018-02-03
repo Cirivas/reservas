@@ -1,0 +1,47 @@
+<% if @aeroplane.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@aeroplane.errors.count, "error") %> prohibited this aeroplane from being saved:</h2>
+
+    <ul>
+    <% @aeroplane.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<p>
+  <%= f.label :plate, 'Matrícula' %>
+  <%= f.text_field :plate %>
+</p>
+
+<p>
+  <%= f.label :plane_type, 'Tipo de aeronave' %>
+  <%= f.text_field :plane_type %>
+</p>
+
+<p>
+  <%= f.label :brand, 'Marca aeronave' %>
+  <%= f.text_field :brand %>
+</p>
+
+<p>
+  <%= f.label :next_revision, 'Hs Próxima revisión' %>
+  <%= f.text_field :next_revision %>
+</p>
+
+<p>
+  <%= f.label :flying_time, 'Hs Voladas' %>
+  <%= f.text_field :flying_time %>
+</p>
+
+<p>
+  Horas disponibles <%= @aeroplane.available_hours %>
+</p>
+
+<p>
+  <%= f.label :state, 'Estado' %>
+  <%= f.select(:state, [['En vuelo', 1], ['Fuera de vuelo', 0]]) %>
+</p>
+
+<%= f.submit %>

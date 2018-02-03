@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122235440) do
+ActiveRecord::Schema.define(version: 20180202000121) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20180122235440) do
     t.string "username", default: "", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "aeroplanes", force: :cascade do |t|
+    t.string "plate", limit: 6, default: "", null: false
+    t.string "plane_type", limit: 6, default: "", null: false
+    t.string "brand", limit: 20, default: "", null: false
+    t.string "next_revision", limit: 10, default: "", null: false
+    t.string "flying_time", limit: 10, default: "", null: false
+    t.integer "state", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

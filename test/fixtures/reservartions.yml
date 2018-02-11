@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_date: 2018-02-06 20:42:56
+  finish_date: 2018-02-06 20:42:56
+  user: one
+  aeroplane: one
+  instructor: one
+  flight_type: MyString
+  route: MyText
+
+two:
+  start_date: 2018-02-06 20:42:56
+  finish_date: 2018-02-06 20:42:56
+  user: two
+  aeroplane: two
+  instructor: two
+  flight_type: MyString
+  route: MyText

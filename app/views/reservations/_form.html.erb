@@ -1,0 +1,124 @@
+<% if @reservation.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+
+    <ul>
+    <% @reservation.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@reservation) do |f| %>
+  <p>
+    Fecha de inicio
+    <%= f.date_select :start_time, order: [:day, :month, :year] %>
+  </p>
+
+  <p>
+    Hora de inicio
+    <%= f.time_select :start_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour, minute: @minutes.minute } %>
+  </p>
+  
+  <p>
+    Fecha de término
+    <%= f.date_select :finish_time, order: [:day, :month, :year] %>
+  </p>
+
+  <p>
+    Hora de término
+    <%= f.time_select :finish_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour + 1, minute: @minutes.minute } %>
+  </p>
+
+  <p>
+    Socio
+    <%= f.collection_select :user_id, User.all, :id, :name, { selected: current_user.id, disabled: !current_user.is_admin? } %>
+  </p>
+
+  <p>
+    Material
+    <%= f.collection_select :aeroplane_id, Aeroplane.all, :id, :plate, { required: true, include_blank: "-- seleccione --" } %>
+  </p>
+
+  <% if params[:action] == 'new' %>
+    <p id="instructor_selector">
+      No posee habilitación, debe seleccionar instructor
+      <%= f.collection_select :instructor_id, User.where(license_type: 'Instructor'), :id, :name %>
+    </p>
+  <% else %>
+    <p id="instructor_selector">
+      No posee habilitación, Instructor seleccionado
+      <%= f.collection_select :instructor_id, User.where(license_type: 'Instructor'), :id, :name %>
+    </p>
+  <% end %>
+
+  <p>
+    Tipo de vuelo
+    <%= f.select :flight_type, [['local', 'local'], ['travesía', 'travesía']] %>
+  </p>
+
+  <p>
+  Ruta
+  <%= f.text_field :route %>  
+  </p>
+
+  <%= f.submit %>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var user = $('#reservation_user_id').find(":selected").val();
+    var qualifications = []
+    $.ajax({
+      method: 'GET',
+      url: 'http://localhost:3000/load_aeroplanes?id=' + user,
+      success: function(res){
+        qualifications = res; 
+      }
+    })  
+
+    <% if params[:action] == 'new' %>
+      $('#instructor_selector').hide();
+    <% end %>
+
+    $('#reservation_aeroplane_id').on('change', function(){
+      var aeroplane_id = $(this).find(":selected").val();
+      checkQualification(aeroplane_id);
+    });
+
+    $('#reservation_user_id').on('change', function(){
+      console.log("changed user_id");
+      var aeroplane_id = $('#reservation_aeroplane_id').find(":selected").val();
+      checkQualification(aeroplane_id);
+    })
+
+    getQualifications = function(user_id) {
+      $.ajax({
+        method: 'GET',
+        url: 'http://localhost:3000/load_aeroplanes?id=' + user,
+        success: function(res){
+          qualifications = res; 
+        }
+      })  
+    }
+
+    checkQualification = function(aeroplane_id) {
+      if(aeroplane_id !== "") {
+        var found = false;
+        qualifications.forEach(function(element){
+          if(element.id == aeroplane_id){
+            found = true;
+          }
+        })
+
+        if(found) {
+          $('#instructor_selector').hide();
+        } else {
+          $('#instructor_selector').show();
+        }
+      }
+    }
+    
+  })
+</script>

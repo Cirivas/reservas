@@ -1,0 +1,13 @@
+<h1>Página de reservas</h1>
+
+<% if user_signed_in? %>
+  <p>Sesión iniciada como socio/admin</p>
+<% else %>
+  <%= link_to 'Log-in', new_user_session_path %>
+<% end %>
+
+<% if admin_signed_in? %>
+  <p>Sesión iniciada como super admin</p>
+<% else %>
+  <%= link_to 'Log-in admin', new_admin_session_path %>
+<% end %>

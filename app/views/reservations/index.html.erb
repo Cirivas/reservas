@@ -1,0 +1,25 @@
+<h1>Todas las reservas</h1>
+
+<%= link_to 'Nueva Reserva', new_reservation_path %>
+
+
+<table>
+  <tr>
+    <td>Fecha inicio</td>
+    <td>Fecha término</td>
+    <td>Material</td>
+    <td>Socio</td>
+    <td colspan="3">Acciones</td>
+  </tr>
+  <% @reservations.each do |a| %>
+    <tr>
+      <td><%= a.start_time %></td>
+      <td><%= a.finish_time %></td>
+      <td><%= a.aeroplane.plate %></td>
+      <td><%= a.user.name %></td>
+      <td><%= link_to 'Ver', reservation_path(a) %></td>
+      <td><%= link_to 'Editar', edit_reservation_path(a) %></td>
+      <td><%= link_to 'Eliminar', reservation_path(a), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>

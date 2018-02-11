@@ -1,0 +1,25 @@
+<h1>Detalle reserva</h1>
+
+<p>Fecha inicio: <%= @reservation.start_time %></p>
+
+<p>Fecha término: <%= @reservation.finish_time %></p>
+
+<p>Tiempo de reserva: <%= formatted_duration (@reservation.finish_time - @reservation.start_time).to_i %> </p>
+
+<p>Socio: <%= @reservation.user.name %></p>
+
+<p>Material: <%= @reservation.aeroplane.plate %></p>
+
+<% if @reservation.instructor.present? %> 
+  <p>Instructor: <%= @reservation.instructor.name %></p>
+<% end %>
+
+<p>Tipo de vuelo: <%= @reservation.flight_type %></p>
+
+<% if @reservation.route.present? %>
+  <p>Ruta: <%= @reservation.route %></p>
+<% end %>
+
+<%= link_to 'Volver', reservations_path %>
+
+

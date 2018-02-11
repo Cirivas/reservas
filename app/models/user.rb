@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_and_belongs_to_many :aeroplanes
+  has_many :reservations
+  has_many :coflights, class_name: 'Reservation', foreign_key: 'instructor_id'
+
   validates :rut, presence: true, length: { minimum: 9, maximum: 10 }
   validates :membership_number, presence: true, length: { is: 5 }
   validates :email, presence: true, length: { maximum: 40 }
@@ -19,5 +23,11 @@ class User < ApplicationRecord
   validates :membership_type, presence: true
   validates :membership_state, presence: true
 
-  has_and_belongs_to_many :aeroplanes
+  def is_admin?
+    if user_role == 1
+      true
+    else
+      false
+    end
+  end
 end

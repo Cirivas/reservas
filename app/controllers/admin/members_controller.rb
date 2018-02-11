@@ -1,5 +1,6 @@
 class Admin::MembersController < ApplicationController
   
+  before_action :authenticate_administrator!
   before_action :set_member, only: [:edit, :update, :show, :destroy]
 
   # GET /admin/members

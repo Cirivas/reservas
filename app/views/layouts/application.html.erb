@@ -6,9 +6,21 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <%= link_to 'Log-out', destroy_user_session_path, method: :delete %>
+      Rol: <% if current_user.is_admin? %> Administrador <% else %> Usuario <% end %>
+    <% end %>
+
+    <% if admin_signed_in? %>
+      <%= link_to 'Log-out', destroy_admin_session_path, method: :delete %>
+    <% end %>
     <% flash.each do |key, value| %>
       <%= content_tag :div, value, class: "flash #{key}" %>
     <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180203180647) do
+ActiveRecord::Schema.define(version: 20180206234720) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -46,6 +46,21 @@ ActiveRecord::Schema.define(version: 20180203180647) do
     t.integer "aeroplane_id", null: false
     t.index ["aeroplane_id", "user_id"], name: "index_aeroplanes_users_on_aeroplane_id_and_user_id"
     t.index ["user_id", "aeroplane_id"], name: "index_aeroplanes_users_on_user_id_and_aeroplane_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.datetime "start_time", null: false
+    t.datetime "finish_time", null: false
+    t.integer "user_id", null: false
+    t.integer "aeroplane_id", null: false
+    t.integer "instructor_id"
+    t.string "flight_type", null: false
+    t.text "route", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aeroplane_id"], name: "index_reservations_on_aeroplane_id"
+    t.index ["instructor_id"], name: "index_reservations_on_instructor_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

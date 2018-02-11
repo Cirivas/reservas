@@ -1,5 +1,6 @@
 class Admin::AeroplanesController < ApplicationController
-  
+
+  before_action :authenticate_administrator!
   before_action :set_aeroplane, only: [:edit, :update, :show, :destroy]
 
   # GET /admin/aeroplanes
@@ -61,6 +62,10 @@ class Admin::AeroplanesController < ApplicationController
 
     def aeroplane_params
       params.require(:aeroplane).permit(:plate, :brand, :plane_type, :next_revision, :flying_time, :state)
+    end
+
+    def authenticate
+      (authenticate_user! && current_user.is_admin?) || authenticate_admin!
     end
 
 end

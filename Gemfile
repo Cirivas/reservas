@@ -53,7 +53,7 @@ end
 
 group :production do
   # Use postgresql in production-heroku
-  gem 'pg'
+  gem 'pg', '~> 0.20'
 end
 
 

@@ -33,7 +33,11 @@
 
   <p>
     Socio
-    <%= f.collection_select :user_id, User.all, :id, :name, { selected: current_user.id, disabled: !current_user.is_admin? } %>
+    <% if user_signed_in? %>
+      <%= f.collection_select :user_id, User.all, :id, :name, { selected: current_user.id}, disabled: !current_user.is_admin? %>
+    <% else %>
+      <%= f.collection_select :user_id, User.all, :id, :name %>
+    <% end %>
   </p>
 
   <p>
@@ -67,19 +71,47 @@
 <% end %>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    var user = $('#reservation_user_id').find(":selected").val();
-    var qualifications = []
+  getQualifications = function(user_id) {
     $.ajax({
       method: 'GET',
-      url: 'http://localhost:3000/load_aeroplanes?id=' + user,
+      url: '/load_aeroplanes?id=' + user_id,
       success: function(res){
-        qualifications = res; 
+        qualifications = res;
+        var aeroplane_id = $('#reservation_aeroplane_id').find(":selected").val();
+        checkQualification(aeroplane_id);
       }
     })  
+  }
+
+  checkQualification = function(aeroplane_id) {
+    if(aeroplane_id != "") {
+      var found = false;
+      qualifications.forEach(function(element){
+        if(element.id == aeroplane_id){
+          found = true;
+        }
+      })
+
+      if(found) {
+        console.log("found");
+        $('#instructor_selector').hide();
+      } else {
+        console.log("not found");
+        $('#instructor_selector').show();
+      }
+    }
+  }
+
+  $(document).ready(function(){
+    var qualifications = []
 
     <% if params[:action] == 'new' %>
       $('#instructor_selector').hide();
+    <% end %>
+
+    <% if user_signed_in? && !current_user.is_admin? %>
+    console.log("is not admin");
+      getQualifications(<%= current_user.id %>)
     <% end %>
 
     $('#reservation_aeroplane_id').on('change', function(){
@@ -88,37 +120,9 @@
     });
 
     $('#reservation_user_id').on('change', function(){
-      console.log("changed user_id");
-      var aeroplane_id = $('#reservation_aeroplane_id').find(":selected").val();
-      checkQualification(aeroplane_id);
+      var user = $('#reservation_user_id').find(":selected").val();
+      getQualifications(user);
+      console.log("changed user_id");  
     })
-
-    getQualifications = function(user_id) {
-      $.ajax({
-        method: 'GET',
-        url: 'http://localhost:3000/load_aeroplanes?id=' + user,
-        success: function(res){
-          qualifications = res; 
-        }
-      })  
-    }
-
-    checkQualification = function(aeroplane_id) {
-      if(aeroplane_id !== "") {
-        var found = false;
-        qualifications.forEach(function(element){
-          if(element.id == aeroplane_id){
-            found = true;
-          }
-        })
-
-        if(found) {
-          $('#instructor_selector').hide();
-        } else {
-          $('#instructor_selector').show();
-        }
-      }
-    }
-    
   })
 </script>

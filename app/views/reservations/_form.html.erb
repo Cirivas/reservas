@@ -28,7 +28,7 @@
 
   <p>
     Hora de término
-    <%= f.time_select :finish_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour + 1, minute: @minutes.minute } %>
+    <%= f.time_select :finish_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour, minute: @minutes.minute } %>
   </p>
 
   <p>

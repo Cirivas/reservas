@@ -109,10 +109,8 @@
       $('#instructor_selector').hide();
     <% end %>
 
-    <% if user_signed_in? && !current_user.is_admin? %>
-    console.log("is not admin");
-      getQualifications(<%= current_user.id %>)
-    <% end %>
+    var user = $('#reservation_user_id').find(":selected").val();
+    getQualifications(user);
 
     $('#reservation_aeroplane_id').on('change', function(){
       var aeroplane_id = $(this).find(":selected").val();

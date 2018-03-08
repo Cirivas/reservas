@@ -1,5 +1,8 @@
-<%= form_for @member, url: admin_members_path do |f| %>
-  <%= render 'form', f: f %>
-<% end %>
+<h2 class="center-xs">Nuevo socio</h2>
+<div class="container container-form center-xs">
+  <%= form_for @member, url: admin_members_path do |f| %>
+    <%= render 'form', f: f %>
+  <% end %>
+</div>
 
 <%= link_to 'Volver', admin_members_path %>

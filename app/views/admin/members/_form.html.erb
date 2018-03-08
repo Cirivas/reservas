@@ -10,88 +10,151 @@
   </div>
 <% end %>
 
-<p>
-  <%= f.label :rut %>
-  <%= f.text_field :rut %>
-</p>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :rut %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.text_field :rut %>
+  </div>
+</div>
 
-<p>
-  <%= f.label :membership_number, 'Número de socio' %>
-  <%= f.text_field :membership_number %>
-</p>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :membership_number, 'Número de socio' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.text_field :membership_number %>
+  </div>
+</div>
 
-<p>
-  <%= f.label :name, 'Nombre' %>
-  <%= f.text_field :name %>
-</p>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :name, 'Nombre' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.text_field :name %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :last_name, 'Apellido' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.text_field :last_name %>
+  </div>
+</div>
 
-<p>
-  <%= f.label :last_name, 'Apellido' %>
-  <%= f.text_field :last_name %>
-</p>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :email, 'Correo' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.email_field :email %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :password, 'Contraseña' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.password_field :password %>
+  </div>
+</div>
 
-<p>
-  <%= f.label :email, 'Correo' %>
-  <%= f.email_field :email %>
-</p>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :password_confirmation, 'Confirme contraseña' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.password_field :password_confirmation %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :address, 'Dirección' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.text_field :address %>
+  </div>
+</div>
 
-<p>
-  <%= f.label :password, 'Contraseña' %>
-  <%= f.password_field :password %>
-</p>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :phone, 'Número de teléfono' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.text_field :phone %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :country, 'País' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.text_field :country %>
+  </div>
+</div>
 
-<p>
-  <%= f.label :password_confirmation, 'Confirme contraseña' %>
-  <%= f.password_field :password_confirmation %>
-</p>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :birthdate, 'Fecha de nacimiento' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.date_field :birthdate %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :license_type, 'Tipo de licencia' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.select(:license_type, [['APA', 'APA'], ['PPA', 'PPA'], ['PCA','PCA'], ['PTLA', 'PTLA'], ['Instructor', 'Instructor']]) %>
+  </div>
+</div>
 
-<p>
-  <%= f.label :address, 'Dirección' %>
-  <%= f.text_field :address %>
-</p>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :license_number, 'Número de licencia' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.text_field :license_number %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :aeroplane_ids, 'Material habilitado' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.collection_select(:aeroplane_ids, Aeroplane.all, :id, :plane_type, { include_hidden: false } , { :multiple => true}) %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :user_role, 'Permiso de sistema' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.select(:user_role, [['Usuario', 0], ['Administrador', 1]]) %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :membership_type, 'Tipo de socio' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.select(:membership_type, [['Vuelo', 'Vuelo'], ['Cooperativo', 'Cooperativo']]) %>
+  </div>
+</div>
 
-<p>
-  <%= f.label :phone, 'Número de teléfono' %>
-  <%= f.text_field :phone %>
-</p>
+<div class="row">
+  <div class="col-xs-6 col-sm">
+    <%= f.label :membership_state, 'Estado de socio' %>
+  </div>
+  <div class="col-xs-6 col-sm">
+    <%= f.select(:membership_state, [['En vuelo', 1], ['Fuera de vuelo', 0], ['Inactivo', -1]]) %> 
+  </div>
+</div>
 
-<p>
-  <%= f.label :country, 'País' %>
-  <%= f.text_field :country %>
-</p>
-
-<p>
-  <%= f.label :birthdate, 'Fecha de nacimiento' %>
-  <%= f.date_field :birthdate %>
-</p>
-
-<p>
-  <%= f.label :license_type, 'Tipo de licencia' %>
-  <%= f.select(:license_type, [['APA', 'APA'], ['PPA', 'PPA'], ['PCA','PCA'], ['PTLA', 'PTLA'], ['Instructor', 'Instructor']]) %>
-</p>
-
-<p>
-  <%= f.label :license_number, 'Número de licencia' %>
-  <%= f.text_field :license_number %>
-</p>
-
-<p>
-  <%= f.label :aeroplane_ids, 'Material habilitado' %>
-  <%= f.collection_select(:aeroplane_ids, Aeroplane.all, :id, :plane_type, { include_hidden: false } , { :multiple => true}) %>
-</p>
-<p>
-  <%= f.label :user_role, 'Permiso de sistema' %>
-  <%= f.select(:user_role, [['Usuario', 0], ['Administrador', 1]]) %>
-</p>
-
-<p>
-  <%= f.label :membership_type, 'Tipo de socio' %>
-  <%= f.select(:membership_type, [['Vuelo', 'Vuelo'], ['Cooperativo', 'Cooperativo']]) %>
-</p>
-
-<p>
-  <%= f.label :membership_state, 'Estado de socio' %>
-  <%= f.select(:membership_state, [['En vuelo', 1], ['Fuera de vuelo', 0], ['Inactivo', -1]]) %> 
-</p>
-
-<%= f.submit %>
+<div class="row center-xs">
+  <%= f.submit "Crear socio", class: "btn btn-primary btn-block" %>
+</div>

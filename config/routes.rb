@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'index#index'
+  root 'reservations#index'
 
   devise_for :admins
   devise_for :users

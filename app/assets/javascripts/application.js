@@ -12,5 +12,12 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery
 //= require_tree .
 
+$(document).ready(function(){
+  $(".flash").prepend('<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>');
+
+  $("[data-dismiss='alert']").on('click', $.proxy(this.hide, this));
+
+})

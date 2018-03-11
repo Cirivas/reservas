@@ -10,151 +10,111 @@
   </div>
 <% end %>
 
-<div class="row">
-  <div class="col-xs-6 col-sm">
+<div class="col-box">
+  <div class="steps-container">
+    <div class="line"></div>
+    <ul class="steps">
+      <li id="step1-li" class="active">
+        1
+      </li>
+      <li id="step2-li">
+        2
+      </li>
+      <li id="step3-li">
+        3
+      </li>
+      <li id="step4-li">
+        4
+      </li>
+    </ul>
+  </div>
+  <div class="step1">
     <%= f.label :rut %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.text_field :rut %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-6 col-sm">
-    <%= f.label :membership_number, 'Número de socio' %>
-  </div>
-  <div class="col-xs-6 col-sm">
-    <%= f.text_field :membership_number %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-6 col-sm">
     <%= f.label :name, 'Nombre' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.text_field :name %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-6 col-sm">
     <%= f.label :last_name, 'Apellido' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.text_field :last_name %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-6 col-sm">
     <%= f.label :email, 'Correo' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.email_field :email %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-6 col-sm">
     <%= f.label :password, 'Contraseña' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.password_field :password %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-6 col-sm">
-    <%= f.label :password_confirmation, 'Confirme contraseña' %>
+    <input type="button" class="btn btn-primary btn-block" onclick="nextStep(2)" value="Siguiente" />
   </div>
-  <div class="col-xs-6 col-sm">
-    <%= f.password_field :password_confirmation %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-6 col-sm">
+
+  <div class="step2" style="display: none;">
+
     <%= f.label :address, 'Dirección' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.text_field :address %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-6 col-sm">
     <%= f.label :phone, 'Número de teléfono' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.text_field :phone %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-6 col-sm">
     <%= f.label :country, 'País' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.text_field :country %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-6 col-sm">
     <%= f.label :birthdate, 'Fecha de nacimiento' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.date_field :birthdate %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-6 col-sm">
-    <%= f.label :license_type, 'Tipo de licencia' %>
-  </div>
-  <div class="col-xs-6 col-sm">
-    <%= f.select(:license_type, [['APA', 'APA'], ['PPA', 'PPA'], ['PCA','PCA'], ['PTLA', 'PTLA'], ['Instructor', 'Instructor']]) %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-6 col-sm">
+    <div class="grouped-buttons">
+      <input type="button" class="btn btn-block" onclick="prevStep(1)" value="Atrás" />
+      <input type="button" class="btn btn-block btn-primary" onclick="nextStep(3)" value="Siguiente" />
+    </div>
+
+  </div>
+
+  <div class="step3" style="display: none;">
+    <%= f.label :membership_number, 'Número de socio' %>
+    <%= f.text_field :membership_number %>
+
     <%= f.label :license_number, 'Número de licencia' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.text_field :license_number %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-6 col-sm">
+    <%= f.label :license_type, 'Tipo de licencia' %>
+    <%= f.select(:license_type, [['APA', 'APA'], ['PPA', 'PPA'], ['PCA','PCA'], ['PTLA', 'PTLA'], ['Instructor', 'Instructor']]) %>
+
     <%= f.label :aeroplane_ids, 'Material habilitado' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.collection_select(:aeroplane_ids, Aeroplane.all, :id, :plane_type, { include_hidden: false } , { :multiple => true}) %>
+
+    <div class="grouped-buttons">
+      <input type="button" class="btn btn-block" onclick="prevStep(2)" value="Atrás" />
+      <input type="button" class="btn btn-block btn-primary" onclick="nextStep(4)" value="Siguiente" />
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-6 col-sm">
+
+  <div class="step4" style="display: none;">
     <%= f.label :user_role, 'Permiso de sistema' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.select(:user_role, [['Usuario', 0], ['Administrador', 1]]) %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-6 col-sm">
     <%= f.label :membership_type, 'Tipo de socio' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.select(:membership_type, [['Vuelo', 'Vuelo'], ['Cooperativo', 'Cooperativo']]) %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-6 col-sm">
     <%= f.label :membership_state, 'Estado de socio' %>
-  </div>
-  <div class="col-xs-6 col-sm">
     <%= f.select(:membership_state, [['En vuelo', 1], ['Fuera de vuelo', 0], ['Inactivo', -1]]) %> 
+
+    <div class="grouped-buttons">
+      <input type="button" class="btn btn-block" onclick="prevStep(3)" value="Atrás" />
+      <%= f.submit "Crear socio", class: "btn btn-block btn-primary" %>
+    </div>
   </div>
 </div>
 
-<div class="row center-xs">
-  <%= f.submit "Crear socio", class: "btn btn-primary btn-block" %>
-</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    nextStep = function(next) {
+      $("#step" + (next - 1) + "-li").removeClass("active");
+      $("#step" + next + "-li").addClass("active");
+
+      $("div.step" + next ).show();
+      $("div.step" + (next - 1) ).hide();
+
+    }
+
+    prevStep = function(prev) {
+      $("#step" + (prev + 1) + "-li").removeClass("active");
+      $("#step" + prev + "-li").addClass("active");
+
+      $("div.step" + (prev + 1) ).hide();
+      $("div.step" + prev).show();
+    }
+  })
+</script>

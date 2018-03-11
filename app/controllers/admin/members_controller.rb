@@ -11,6 +11,7 @@ class Admin::MembersController < ApplicationController
 
   # POST /admin/members
   def create
+    params[:user][:password_confirmation] = params[:user][:password]
     @member = User.new(member_params)
 
     if @member.save

@@ -5,6 +5,23 @@ body {
   background-color: #F7F5F3;
   font-family: 'Lato', sans-serif;
 }
+
+.header {
+  background-color: white;
+  position: relative;
+  padding: 1em 1em 1em .5em;
+  margin: 0 -.5em;
+  top: -10px;
+  width: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)
+
+}
+
+.main-content {
+  // background-color: #F7F5F3;
+  // margin: 0 -.5em;
+  // width: 100%;
+}
 .container-box {
   position: relative;
   box-sizing: border-box;
@@ -65,7 +82,8 @@ body {
   }
 }
 
-input[type=text], input[type=email], input[type=password] {
+select, 
+input[type=text], input[type=email], input[type=password], input[type=date] {
   padding: .5px .5px;
   border-radius: .3rem;
   border: 1px solid #ced4da;
@@ -74,11 +92,13 @@ input[type=text], input[type=email], input[type=password] {
   text-indent: 5px;
   margin: 5px 0;
 
-  &:hover{
+  &:hover, &:focus {
     box-shadow: 0px 0px 6px rgba(35, 173, 255, 1);
     transition: all 200ms ease-out;
   }
 }
+
+
 
 /*@media screen and (max-width: 440px) {
   input[type=text], input[type=email], input[type=password] {

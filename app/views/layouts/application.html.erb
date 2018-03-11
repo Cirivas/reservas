@@ -4,6 +4,9 @@
     <title>Reservas</title>
     <%= csrf_meta_tags %>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script
@@ -40,6 +43,9 @@
 
       <% if admin_signed_in? %>
         <div class="header">
+          <%= link_to 'Reservas', reservations_path %>
+          <%= link_to 'Materiales', admin_aeroplanes_path %>
+          <%= link_to 'Socios', admin_members_path %>
           <%= link_to 'Log-out', destroy_admin_session_path, method: :delete %>
         </div>
       <% end %>

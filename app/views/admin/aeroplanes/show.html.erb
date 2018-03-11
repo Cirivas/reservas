@@ -1,9 +1,15 @@
-<p>Matrícula <%= @aeroplane.plate %></p>
-<p>Tipo de aeronave: <%= @aeroplane.plane_type %></p>
-<p>Marca aeronave: <%= @aeroplane.brand %></p>
-<p>Hs próxima revisión: <%= @aeroplane.next_revision %></p>
-<p>Hs voladas: <%= @aeroplane.flying_time %></p>
-<p>Hs disponibles: <%= @aeroplane.available_hours %></p>
-<p>Estado: <% if @aeroplane.state %> En vuelo <% else %> Fuera de Vuelo <% end %></p>
+<div class="container-form">
+  <div class="container-box center display">
+    <div class="col-box">
+      <h2 class="center"><%= @aeroplane.plate %></h2>
+      <p>Tipo de aeronave: <%= @aeroplane.plane_type %></p>
+      <p>Marca aeronave: <%= @aeroplane.brand %></p>
+      <p>Hs próxima revisión: <%= @aeroplane.next_revision %></p>
+      <p>Hs voladas: <%= @aeroplane.flying_time %></p>
+      <p>Hs disponibles: <%= @aeroplane.available_hours %></p>
+      <p>Estado: <% if @aeroplane.state %> En vuelo <% else %> Fuera de Vuelo <% end %></p>
 
-<%= link_to 'Volver', admin_aeroplanes_path %>
+      <%= link_to 'Volver', admin_aeroplanes_path %>
+    </div>
+  </div>
+</div>

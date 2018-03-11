@@ -1,21 +1,29 @@
-<h1>Admin Site</h1>
-<%= link_to 'Nuevo Socio', new_admin_member_path %>
+<div class="center">
+  <h1>Socios</h1>
+  <%= link_to 'Nuevo Socio', new_admin_member_path %>
+</div>
 
-<table>
-  <tr>
-    <td>Rut</td>
-    <td>Número de socio</td>
-    <td>Nombre</td>
-    <td colspan="3">Acciones</td>
-  </tr>
-  <% @members.each do |m| %>
-    <tr>
-      <td><%= m.rut %></td>
-      <td><%= m.membership_number %></td>
-      <td><%= m.name %> <%= m.last_name %></td>
-      <td><%= link_to 'Ver', admin_member_path(m) %></td>
-      <td><%= link_to 'Editar', edit_admin_member_path(m) %></td>
-      <td><%= link_to 'Eliminar', admin_member_path(m), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="container container-table members">
+  <table>
+    <thead>
+      <tr>
+        <th>Rut</th>
+        <th>Número de socio</th>
+        <th>Nombre</th>
+        <th colspan="3">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @members.each do |m| %>
+        <tr>
+          <td><%= m.rut %></td>
+          <td><%= m.membership_number %></td>
+          <td><%= m.name %> <%= m.last_name %></td>
+          <td><%= link_to 'Ver', admin_member_path(m) %></td>
+          <td><%= link_to 'Editar', edit_admin_member_path(m) %></td>
+          <td><%= link_to 'Eliminar', admin_member_path(m), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

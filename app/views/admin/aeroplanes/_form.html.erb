@@ -10,38 +10,43 @@
   </div>
 <% end %>
 
-<p>
-  <%= f.label :plate, 'Matrícula' %>
-  <%= f.text_field :plate %>
-</p>
+<%= f.label :plate, 'Matrícula' %>
+<% if @aeroplane.errors.messages[:plate] %>
+  <% @aeroplane.errors.messages[:plate].each do |msg| %>
+    <div class="error-message"><%= msg %></div>
+  <% end %>
+<% end %>
+<%= f.text_field :plate %>
 
-<p>
-  <%= f.label :plane_type, 'Tipo de aeronave' %>
-  <%= f.text_field :plane_type %>
-</p>
 
-<p>
-  <%= f.label :brand, 'Marca aeronave' %>
-  <%= f.text_field :brand %>
-</p>
 
-<p>
-  <%= f.label :next_revision, 'Hs Próxima revisión' %>
-  <%= f.text_field :next_revision %>
-</p>
+<%= f.label :plane_type, 'Tipo de aeronave' %>
+<%= f.text_field :plane_type %>
 
-<p>
-  <%= f.label :flying_time, 'Hs Voladas' %>
-  <%= f.text_field :flying_time %>
-</p>
 
-<p>
-  Horas disponibles <%= @aeroplane.available_hours %>
-</p>
 
-<p>
-  <%= f.label :state, 'Estado' %>
-  <%= f.select(:state, [['En vuelo', 1], ['Fuera de vuelo', 0]]) %>
-</p>
+<%= f.label :brand, 'Marca aeronave' %>
+<%= f.text_field :brand %>
 
-<%= f.submit %>
+
+
+<%= f.label :next_revision, 'Hs Próxima revisión' %>
+<%= f.text_field :next_revision %>
+
+
+
+<%= f.label :flying_time, 'Hs Voladas' %>
+<%= f.text_field :flying_time %>
+
+
+<% if params[:action] == "edit" %>
+  <label>Horas disponibles: <%= @aeroplane.available_hours %></label>
+<% end %>
+
+
+
+<%= f.label :state, 'Estado' %>
+<%= f.select(:state, [['En vuelo', 1], ['Fuera de vuelo', 0]]) %>
+
+
+<%= f.submit "Crear material", class: "btn btn-primary btn-block" %>

@@ -6,6 +6,11 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservation.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: ActiveModel::ArraySerializer.new(@reservations, each_serializer: ReservationsSerializer).to_json }
+    end
   end
 
   def new

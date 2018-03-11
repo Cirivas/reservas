@@ -1,25 +1,66 @@
-<h1>Todas las reservas</h1>
+<div class="center">
+  <h1>Reservas</h1>
 
-<%= link_to 'Nueva Reserva', new_reservation_path %>
+  <%= link_to 'Nueva Reserva', new_reservation_path %>
+</div>
 
+<div class="calendar-container">
+  <div id="calendar"></div>
+</div>
 
-<table>
-  <tr>
-    <td>Fecha inicio</td>
-    <td>Fecha término</td>
-    <td>Material</td>
-    <td>Socio</td>
-    <td colspan="3">Acciones</td>
-  </tr>
-  <% @reservations.each do |a| %>
-    <tr>
-      <td><%= a.start_time %></td>
-      <td><%= a.finish_time %></td>
-      <td><%= a.aeroplane.plate %></td>
-      <td><%= a.user.name %></td>
-      <td><%= link_to 'Ver', reservation_path(a) %></td>
-      <td><%= link_to 'Editar', edit_reservation_path(a) %></td>
-      <td><%= link_to 'Eliminar', reservation_path(a), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="container container-table reservations">
+  <table>
+    <thead>
+      <tr>
+        <td>Fecha inicio</td>
+        <td>Fecha término</td>
+        <td>Material</td>
+        <td>Socio</td>
+        <td colspan="3">Acciones</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reservations.each do |a| %>
+        <tr>
+          <td><%= a.start_time %></td>
+          <td><%= a.finish_time %></td>
+          <td><%= a.aeroplane.plate %></td>
+          <td><%= a.user.name %></td>
+          <td><%= link_to 'Ver', reservation_path(a) %></td>
+          <td><%= link_to 'Editar', edit_reservation_path(a) %></td>
+          <td><%= link_to 'Eliminar', reservation_path(a), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  
+    $('#calendar').once().fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: ''
+      },
+      buttonText: {
+        today: 'hoy'
+      },
+      fixedWeekCount: false,
+      editable: false,
+      eventLimit: true, // when too many events in a day, show the popover
+      events: "/reservations.json",
+      eventClick: function(calEvent, jsEvent, view) {
+
+         window.location.replace("/reservations/" + calEvent.id);
+
+       }
+    });
+
+    $('#calendar').fullCalendar('option', 'locale', 'es');
+    
+
+  })
+</script>

@@ -1,25 +1,30 @@
-<h1>Detalle reserva</h1>
+<div class="container-form">
+  <div class="container-box center display">
+    <div class="col-box">
+      <h2 class="center">Detalle reserva</h2>
 
-<p>Fecha inicio: <%= @reservation.start_time %></p>
+      <p>Fecha inicio: <%= @reservation.start_time.strftime("%Y/%m/%d %H:%M") %></p>
 
-<p>Fecha término: <%= @reservation.finish_time %></p>
+      <p>Fecha término: <%= @reservation.finish_time.strftime("%Y/%m/%d %H:%M") %></p>
 
-<p>Tiempo de reserva: <%= formatted_duration (@reservation.finish_time - @reservation.start_time).to_i %> </p>
+      <p>Tiempo de reserva: <%= formatted_duration (@reservation.finish_time - @reservation.start_time).to_i %> </p>
 
-<p>Socio: <%= @reservation.user.name %></p>
+      <p>Socio: <%= @reservation.user.name %></p>
 
-<p>Material: <%= @reservation.aeroplane.plate %></p>
+      <p>Material: <%= @reservation.aeroplane.plate %></p>
 
-<% if @reservation.instructor.present? %> 
-  <p>Instructor: <%= @reservation.instructor.name %></p>
-<% end %>
+      <% if @reservation.instructor.present? %> 
+        <p>Instructor: <%= @reservation.instructor.name %></p>
+      <% end %>
 
-<p>Tipo de vuelo: <%= @reservation.flight_type %></p>
+      <p>Tipo de vuelo: <%= @reservation.flight_type %></p>
 
-<% if @reservation.route.present? %>
-  <p>Ruta: <%= @reservation.route %></p>
-<% end %>
+      <% if @reservation.route.present? %>
+        <p>Ruta: <%= @reservation.route %></p>
+      <% end %>
 
-<%= link_to 'Volver', reservations_path %>
-
+      <%= link_to 'Volver', reservations_path %>
+    </div>
+  </div>
+</div>
 

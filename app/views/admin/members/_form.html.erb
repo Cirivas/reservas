@@ -12,19 +12,27 @@
 
 <div class="col-box">
   <div class="steps-container">
-    <div class="line"></div>
     <ul class="steps">
-      <li id="step1-li" class="active">
-        1
+      <li id="step1-li" class="step-li active">
+        <i class="fas fa-address-book"></i>
       </li>
-      <li id="step2-li">
-        2
+      <li class="arrow">
+        <i class="fas fa-angle-right"></i>
       </li>
-      <li id="step3-li">
-        3
+      <li id="step2-li" class="step-li">
+        <i class="fas fa-user-plus"></i>
       </li>
-      <li id="step4-li">
-        4
+      <li class="arrow">
+        <i class="fas fa-angle-right"></i>
+      </li>
+      <li id="step3-li" class="step-li">
+        <i class="fas fa-plane"></i>
+      </li>
+      <li class="arrow">
+        <i class="fas fa-angle-right"></i>
+      </li>
+      <li id="step4-li" class="step-li">
+        <i class="fas fa-cog"></i>
       </li>
     </ul>
   </div>
@@ -71,7 +79,9 @@
     <%= f.label :license_number, 'Número de licencia' %>
     <%= f.text_field :license_number %>
     <%= f.label :license_type, 'Tipo de licencia' %>
-    <%= f.select(:license_type, [['APA', 'APA'], ['PPA', 'PPA'], ['PCA','PCA'], ['PTLA', 'PTLA'], ['Instructor', 'Instructor']]) %>
+    <div class="select-style">
+      <%= f.select(:license_type, [['APA', 'APA'], ['PPA', 'PPA'], ['PCA','PCA'], ['PTLA', 'PTLA'], ['Instructor', 'Instructor']]) %>
+    </div>
 
     <%= f.label :aeroplane_ids, 'Material habilitado' %>
     <%= f.collection_select(:aeroplane_ids, Aeroplane.all, :id, :plane_type, { include_hidden: false } , { :multiple => true}) %>
@@ -93,9 +103,15 @@
 
     <div class="grouped-buttons">
       <input type="button" class="btn btn-block" onclick="prevStep(3)" value="Atrás" />
-      <%= f.submit "Crear socio", class: "btn btn-block btn-primary" %>
+      <% if params[:action] == "new" %>
+        <%= f.submit "Crear socio", class: "btn btn-block btn-primary" %>
+      <% else %>
+        <%= f.submit "Editar socio", class: "btn btn-block btn-primary" %>
+      <% end %>
     </div>
   </div>
+  <%= link_to 'Volver', admin_members_path %>
+
 </div>
 
 <script type="text/javascript">

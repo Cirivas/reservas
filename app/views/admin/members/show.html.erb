@@ -1,22 +1,28 @@
-<p>Rut: <%= @member.rut %></p>
-<p>Número de socio <%= @member.membership_number %></p>
-<p>Nombre: <%= @member.name %> <%= @member.last_name %></p>
-<p>Email: <%= @member.email %></p>
-<p>Dirección: <%= @member.address %></p>
-<p>Teléfono: +56 <%= @member.phone %></p>
-<p>País: <%= @member.country %></p>
-<p>Fecha de nacimiento: <%= @member.birthdate %></p>
-<p>Tipo de licencia: <%= @member.license_type %></p>
-<p>Número de licencia: <%= @member.license_number %></p>
-<p>Materiales habilitados:
-  <ul> 
-  <% @aeroplanes.each do |ae| %>
-    <li>Matrícula: <%= ae.plate %>, Tipo: <%= ae.plane_type %> </li>
-  <% end %>
-  </ul>
-</p>
-<p>Permiso de sistema: <% if @member.user_role %> Administrador <% else %> Usuario <% end %></p>
-<p>Tipo de socio: <%= @member.membership_type %></p>
-<p>Estado de socio: <% if @member.membership_state > 0 %> En vuelo <% elsif @member.membership_state == 0 %> Fuera de vuelo <% else %> Inactivo <% end %></p>
+<div class="container-form">
+  <div class="container-box center display">
+    <div class="col-box">
+      <h2><%= @member.name %> <%= @member.last_name %></h2>
+      <p>Rut: <%= @member.rut %></p>
+      <p>Número de socio <%= @member.membership_number %></p>
+      <p>Email: <%= @member.email %></p>
+      <p>Dirección: <%= @member.address %></p>
+      <p>Teléfono: +56 <%= @member.phone %></p>
+      <p>País: <%= @member.country %></p>
+      <p>Fecha de nacimiento: <%= @member.birthdate %></p>
+      <p>Tipo de licencia: <%= @member.license_type %></p>
+      <p>Número de licencia: <%= @member.license_number %></p>
+      <p>Materiales habilitados:
+        <ul> 
+        <% @aeroplanes.each do |ae| %>
+          <li>Matrícula: <%= ae.plate %>, Tipo: <%= ae.plane_type %> </li>
+        <% end %>
+        </ul>
+      </p>
+      <p>Permiso de sistema: <% if @member.user_role %> Administrador <% else %> Usuario <% end %></p>
+      <p>Tipo de socio: <%= @member.membership_type %></p>
+      <p>Estado de socio: <% if @member.membership_state > 0 %> En vuelo <% elsif @member.membership_state == 0 %> Fuera de vuelo <% else %> Inactivo <% end %></p>
 
-<%= link_to 'Volver', admin_members_path %>
+      <%= link_to 'Volver', admin_members_path %>
+    </div>
+  </div>
+</div>

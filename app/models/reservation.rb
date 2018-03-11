@@ -1,4 +1,6 @@
 class Reservation < ApplicationRecord
+  include ActiveModel::Serialization
+
   belongs_to :user
   belongs_to :aeroplane
   belongs_to :instructor, class_name: 'User'
@@ -30,8 +32,7 @@ class Reservation < ApplicationRecord
 
   def not_on_same_date
     reservations = Reservation.all
-    puts "Model validation"
-    puts reservations
+
     reservations.each do |res|
       if res.id != id && res.aeroplane_id == aeroplane_id
         if res.start_time > start_time && res.start_time < finish_time

@@ -7,6 +7,9 @@
   }
 }
 
+h2 {
+  margin-bottom: 0px;
+}
 
 @media only screen and (max-device-width: 480px) { 
   .grouped-buttons {
@@ -20,12 +23,18 @@
   }
 }
 
-.step {
-  &1, &2, &3, &4 {
+@for $i from 1 through 4 {
+  .step#{$i} {
     display: flex;
     flex-direction: column;
   }
 }
+// .step {
+//   &1, &2, &3, &4 {
+//     display: flex;
+//     flex-direction: column;
+//   }
+// }
 
 .steps-container {
   width: 100%;
@@ -38,7 +47,7 @@
   height: 2px;
   width: inherit;
   max-width: 35em;
-  background: red;
+  background: #bababa;
   position: absolute;
   top: 40px;
   margin: 0 auto;
@@ -54,21 +63,27 @@
   list-style-type: none;
   max-width: 35em;
   text-align: center;
-  li {
+  
+  .step-li {
     border: 1px groove #bababa;
     border-radius: 100%;
     box-sizing: border-box;
     width: 50px;
     height: 50px;
-    padding: 5px 5px;
+    padding: 10px 10px;
     background-color: #dceeef;
-    text-align: center;
+    font-size: 25px;
 
     &.active {
       background-color: #b4c3c4;
       color: white;
     }
-  }
-  
 
+  }
+
+  li.arrow {
+    font-size: 20px;
+    padding-top: 15px;
+    color: #bababa
+  }
 }

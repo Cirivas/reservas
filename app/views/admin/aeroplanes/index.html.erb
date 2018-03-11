@@ -1,24 +1,39 @@
-<h1>Admin Site</h1>
-<%= link_to 'Nuevo Material', new_admin_aeroplane_path %>
+<div class="center">
+  <h1>Materiales</h1>
+  <%= link_to 'Nuevo Material', new_admin_aeroplane_path %>
+</div>
 
-<table>
-  <tr>
-    <td>Matrícula</td>
-    <td>Tipo de aeronave</td>
-    <td colspan="3">Acciones</td>
-  </tr>
-  <% @aeroplanes.each do |a| %>
-    <tr>
-      <td><%= a.plate %></td>
-      <td><%= a.plane_type %></td>
-      <td><%= a.brand %></td>
-      <td><%= a.next_revision %></td>
-      <td><%= a.flying_time %></td>
-      <td><%= a.available_hours %></td>
-      <td><% if a.state %>En vuelo <% else %> Fuera de vuelo <% end %></td>
-      <td><%= link_to 'Ver', admin_aeroplane_path(a) %></td>
-      <td><%= link_to 'Editar', edit_admin_aeroplane_path(a) %></td>
-      <td><%= link_to 'Eliminar', admin_aeroplane_path(a), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</table>
+
+
+<div class="container container-table aeroplanes">
+  <table>
+    <thead>
+      <tr>
+        <th>Matrícula</th>
+        <th>Tipo de aeronave</th>
+        <th>Marca</th>
+        <th>Próxima Revisión</th>
+        <th>Tiempo de vuelo</th>
+        <th>Horas disponibles</th>
+        <th>Estado</th>
+        <th colspan="3">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @aeroplanes.each do |a| %>
+        <tr>
+          <td><%= a.plate %></td>
+          <td><%= a.plane_type %></td>
+          <td><%= a.brand %></td>
+          <td><%= a.next_revision %></td>
+          <td><%= a.flying_time %></td>
+          <td><%= a.available_hours %></td>
+          <td><% if a.state %>En vuelo <% else %> Fuera de vuelo <% end %></td>
+          <td><%= link_to 'Ver', admin_aeroplane_path(a) %></td>
+          <td><%= link_to 'Editar', edit_admin_aeroplane_path(a) %></td>
+          <td><%= link_to 'Eliminar', admin_aeroplane_path(a), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

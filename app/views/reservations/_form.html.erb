@@ -11,39 +11,39 @@
 <% end %>
 
 <%= form_for(@reservation) do |f| %>
-  <p>
-    Fecha de inicio
+    <div class="col-box">
+    <label>Fecha de inicio</label>
     <%= f.date_select :start_time, order: [:day, :month, :year] %>
-  </p>
-
-  <p>
-    Hora de inicio
-    <%= f.time_select :start_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour, minute: @minutes.minute } %>
-  </p>
   
-  <p>
-    Fecha de término
+
+
+    <label>Hora de inicio</label>
+    <%= f.time_select :start_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour, minute: @minutes.minute } %>
+  
+  
+ 
+    <label>Fecha de término</label>
     <%= f.date_select :finish_time, order: [:day, :month, :year] %>
-  </p>
+  
 
-  <p>
-    Hora de término
+ 
+    <label>Hora de término</label>
     <%= f.time_select :finish_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour, minute: @minutes.minute } %>
-  </p>
+  
 
-  <p>
-    Socio
+ 
+    <label>Socio</label>
     <% if user_signed_in? %>
       <%= f.collection_select :user_id, User.all, :id, :name, { selected: current_user.id}, disabled: !current_user.is_admin? %>
     <% else %>
       <%= f.collection_select :user_id, User.all, :id, :name %>
     <% end %>
-  </p>
+  
 
-  <p>
-    Material
+ 
+    <label>Material</label>
     <%= f.collection_select :aeroplane_id, Aeroplane.all, :id, :plate, { required: true, include_blank: "-- seleccione --" } %>
-  </p>
+  
 
   <% if params[:action] == 'new' %>
     <p id="instructor_selector">
@@ -57,17 +57,18 @@
     </p>
   <% end %>
 
-  <p>
-    Tipo de vuelo
+ 
+    <label>Tipo de vuelo</label>
     <%= f.select :flight_type, [['local', 'local'], ['travesía', 'travesía']] %>
-  </p>
+  
 
-  <p>
-  Ruta
-  <%= f.text_field :route %>  
-  </p>
+ 
+    <label>Ruta</label>
+    <%= f.text_field :route %>  
+  
 
-  <%= f.submit %>
+  <%= f.submit "Reservar", class: "btn btn-primary btn-block" %>
+</div>
 <% end %>
 
 <script type="text/javascript">

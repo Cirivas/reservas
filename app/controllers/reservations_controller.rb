@@ -5,10 +5,18 @@ class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:edit, :update, :show, :destroy]
 
   def index
-    @reservations = Reservation.all
-
+    if params[:start].present?
+      start_time = params[:start]
+      finish_time = params[:end]
+    else
+      start_time = Date.today.beginning_of_month
+      finish_time = Date.today.end_of_month
+    end
+    @reservations = Reservation.where('start_time >= ? and finish_time <= ?', start_time, finish_time)
+    puts "reservations counts #{@reservations.count}"
     respond_to do |format|
       format.html
+      format.js
       format.json { render json: ActiveModel::ArraySerializer.new(@reservations, each_serializer: ReservationsSerializer).to_json }
     end
   end

@@ -87,17 +87,15 @@
   checkQualification = function(aeroplane_id) {
     if(aeroplane_id != "") {
       var found = false;
-      qualifications.forEach(function(element){
+      qualifications.reservations.forEach(function(element){
         if(element.id == aeroplane_id){
           found = true;
         }
       })
 
       if(found) {
-        console.log("found");
         $('#instructor_selector').hide();
       } else {
-        console.log("not found");
         $('#instructor_selector').show();
       }
     }
@@ -121,7 +119,6 @@
     $('#reservation_user_id').on('change', function(){
       var user = $('#reservation_user_id').find(":selected").val();
       getQualifications(user);
-      console.log("changed user_id");  
     })
   })
 </script>

@@ -28,7 +28,7 @@
           <td><%= a.next_revision %></td>
           <td><%= a.flying_time %></td>
           <td><%= a.available_hours %></td>
-          <td><% if a.state %>En vuelo <% else %> Fuera de vuelo <% end %></td>
+          <td><% if a.state == 1 %> En vuelo <% else %> Fuera de vuelo <% end %></td>
           <td><%= link_to 'Ver', admin_aeroplane_path(a) %></td>
           <td><%= link_to 'Editar', edit_admin_aeroplane_path(a) %></td>
           <td><%= link_to 'Eliminar', admin_aeroplane_path(a), method: :delete, data: { confirm: 'Are you sure?' } %></td>

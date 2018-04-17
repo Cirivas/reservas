@@ -18,7 +18,7 @@
         <% end %>
         </ul>
       </p>
-      <p>Permiso de sistema: <% if @member.user_role %> Administrador <% else %> Usuario <% end %></p>
+      <p>Permiso de sistema: <% if @member.is_admin? %> Administrador <% else %> Usuario <% end %></p>
       <p>Tipo de socio: <%= @member.membership_type %></p>
       <p>Estado de socio: <% if @member.membership_state > 0 %> En vuelo <% elsif @member.membership_state == 0 %> Fuera de vuelo <% else %> Inactivo <% end %></p>
 

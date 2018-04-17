@@ -48,5 +48,8 @@
 <%= f.label :state, 'Estado' %>
 <%= f.select(:state, [['En vuelo', 1], ['Fuera de vuelo', 0]]) %>
 
-
-<%= f.submit "Crear material", class: "btn btn-primary btn-block" %>
+<% if params[:action] == "new" %>
+  <%= f.submit "Crear material", class: "btn btn-primary btn-block" %>
+<% else %>
+  <%= f.submit "Actualizar material", class: "btn btn-primary btn-block" %>
+<% end %>

@@ -7,7 +7,7 @@
       <p>Hs próxima revisión: <%= @aeroplane.next_revision %></p>
       <p>Hs voladas: <%= @aeroplane.flying_time %></p>
       <p>Hs disponibles: <%= @aeroplane.available_hours %></p>
-      <p>Estado: <% if @aeroplane.state %> En vuelo <% else %> Fuera de Vuelo <% end %></p>
+      <p>Estado: <% if @aeroplane.state == 1 %> En vuelo <% else %> Fuera de Vuelo <% end %></p>
 
       <%= link_to 'Volver', admin_aeroplanes_path %>
     </div>

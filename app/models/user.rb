@@ -29,4 +29,15 @@ class User < ApplicationRecord
       false
     end
   end
+
+  def is_qualified?(aeroplane_id)
+    found = false
+    aeroplanes.each do |a|
+      if a.id.to_i == aeroplane_id.to_i
+        found = true
+        break
+      end
+    end
+    found
+  end
 end

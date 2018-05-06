@@ -13,10 +13,8 @@ class ReservationsController < ApplicationController
       finish_time = Date.today.end_of_month
     end
     @reservations = Reservation.where('start_time >= ? and finish_time <= ?', start_time, finish_time)
-    puts "reservations counts #{@reservations.count}"
     respond_to do |format|
       format.html
-      format.js
       format.json { render json: ActiveModel::ArraySerializer.new(@reservations, each_serializer: ReservationsSerializer).to_json }
     end
   end
@@ -34,7 +32,15 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = Reservation.new(reservation_params)
+    if user_signed_in?
+      if current_user.is_qualified?(params[:reservation][:aeroplane_id])
+        params[:reservation].delete(:instructor_id)
+      end      
+      @reservation = Reservation.new(reservation_params)
+      @reservation.user_id = current_user.id 
+    else
+      @reservation = Reservation.new(reservation_params)
+    end
     
     if @reservation.save
       flash[:success] = "Reserva creada correctamente"
@@ -46,11 +52,25 @@ class ReservationsController < ApplicationController
   end
 
   def edit
+    if user_signed_in? && @reservation.user_id != current_user.id
+      redirect_to reservations_path
+    end
   end
   
   def update
+    if user_signed_in?
+      if current_user.is_qualified?(params[:reservation][:aeroplane_id])
+        params[:reservation][:instructor_id] = nil
+      end
+    else
+      user = User.find(params[:reservation][:user_id])
+      if user.is_qualified?(params[:reservation][:aeroplane_id])
+        params[:reservation][:instructor_id] = nil
+      end
+    end
+
     if @reservation.update_attributes(reservation_params)
-      @flash[:success] = "Reserva actualizada correctamente"
+      flash[:success] = "Reserva actualizada correctamente"
       redirect_to @reservation
     else
       minutes

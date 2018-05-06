@@ -18,8 +18,9 @@
 
 
     <label>Hora de inicio</label>
-    <%= f.time_select :start_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour, minute: @minutes.minute } %>
-  
+    <div>
+      <%= f.time_select :start_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour, minute: @minutes.minute } %>
+    </div>
   
  
     <label>Fecha de término</label>
@@ -31,31 +32,32 @@
     <%= f.time_select :finish_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour, minute: @minutes.minute } %>
   
 
- 
-    <label>Socio</label>
-    <% if user_signed_in? %>
-      <%= f.collection_select :user_id, User.all, :id, :name, { selected: current_user.id}, disabled: !current_user.is_admin? %>
-    <% else %>
-      <%= f.collection_select :user_id, User.all, :id, :name %>
+    <% if (user_signed_in? && current_user.is_admin?) || admin_signed_in? %>
+      <label>Socio</label>
+      <% if user_signed_in? %>
+        <%= f.collection_select :user_id, User.all, :id, :name, { selected: current_user.id} %>
+      <% else %>
+        <%= f.collection_select :user_id, User.all, :id, :name %>
+      <% end %>
     <% end %>
   
 
  
     <label>Material</label>
-    <%= f.collection_select :aeroplane_id, Aeroplane.all, :id, :plate, { required: true, include_blank: "-- seleccione --" } %>
+    <%= f.collection_select :aeroplane_id, Aeroplane.where(state: 1), :id, :plate, { required: true, include_blank: "-- seleccione --" } %>
   
 
-  <% if params[:action] == 'new' %>
-    <p id="instructor_selector">
-      No posee habilitación, debe seleccionar instructor
-      <%= f.collection_select :instructor_id, User.where(license_type: 'Instructor'), :id, :name %>
-    </p>
-  <% else %>
-    <p id="instructor_selector">
-      No posee habilitación, Instructor seleccionado
-      <%= f.collection_select :instructor_id, User.where(license_type: 'Instructor'), :id, :name %>
-    </p>
-  <% end %>
+    <% if params[:action] == 'new' %>
+      <p id="instructor_selector">
+        No posee habilitación, debe seleccionar instructor
+        <%= f.collection_select :instructor_id, User.where(license_type: 'Instructor'), :id, :name %>
+      </p>
+    <% else %>
+      <p id="instructor_selector">
+        No posee habilitación, instructor seleccionado
+        <%= f.collection_select :instructor_id, User.where(license_type: 'Instructor'), :id, :name %>
+      </p>
+    <% end %>
 
  
     <label>Tipo de vuelo</label>
@@ -103,6 +105,9 @@
 
   $(document).ready(function(){
     var qualifications = []
+    <% if user_signed_in? %>
+      getQualifications(<%= current_user.id %>)
+    <% end %>
 
     <% if params[:action] == 'new' %>
       $('#instructor_selector').hide();

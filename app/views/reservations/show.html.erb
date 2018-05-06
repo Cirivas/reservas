@@ -23,7 +23,13 @@
         <p>Ruta: <%= @reservation.route %></p>
       <% end %>
 
+      <div class="options">
+        <% if (user_signed_in? && @reservation.user_id == current_user.id) || admin_signed_in? %> 
+          <%= link_to "Editar", edit_reservation_path(@reservation) %>
+          <%= link_to "Eliminar", reservation_path(@reservation), method: :delete, data: { confirm: "¿Estás seguro?" } %>
+        <% end %>
       <%= link_to 'Volver', reservations_path %>
+      </div>
     </div>
   </div>
 </div>

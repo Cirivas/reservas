@@ -3,7 +3,7 @@ class Reservation < ApplicationRecord
 
   belongs_to :user
   belongs_to :aeroplane
-  belongs_to :instructor, class_name: 'User'
+  belongs_to :instructor, class_name: 'User', optional: true
 
   validates :start_time, presence: true
   validates :finish_time, presence: true

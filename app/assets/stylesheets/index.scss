@@ -255,6 +255,10 @@ a {
   }
 }*/
 
+.col-50 {
+  width: 50%;
+}
+
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -327,4 +331,9 @@ a {
     text-decoration: none;
     opacity: .2;
   }
+}
+
+.options {
+  display: flex;
+  justify-content: space-around;
 }

@@ -86,7 +86,7 @@
     </div>
 
     <%= f.label :aeroplane_ids, 'Material habilitado' %>
-    <%= f.collection_select(:aeroplane_ids, Aeroplane.all, :id, :plane_type, { include_hidden: false } , { :multiple => true}) %>
+    <%= f.collection_select(:aeroplane_ids, Aeroplane.all, :id, :plate, { include_hidden: false } , { :multiple => true}) %>
 
     <div class="grouped-buttons">
       <input type="button" class="btn btn-block" onclick="prevStep(2)" value="Atrás" />

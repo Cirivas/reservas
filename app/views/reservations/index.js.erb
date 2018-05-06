@@ -19,8 +19,10 @@
         '<td><%= a.aeroplane.plate %></td>' +
         '<td><%= a.user.name %></td>' +
         '<td><%= link_to "Ver", reservation_path(a) %></td>' +
+        <% if user_signed_in? && current_user.id == a.user_id %>
         '<td><%= link_to "Editar", edit_reservation_path(a) %></td>' +
         '<td><%= link_to "Eliminar", reservation_path(a), method: :delete, data: { confirm: "Are you sure?" } %></td>' +
+        <% end %>
       '</tr>' +
     '<% end %>' +
   '</tbody>').appendTo("#reservations-table");

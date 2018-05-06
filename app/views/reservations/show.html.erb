@@ -24,7 +24,7 @@
       <% end %>
 
       <div class="options">
-        <% if (user_signed_in? && @reservation.user_id == current_user.id) || admin_signed_in? %> 
+        <% if (user_signed_in? && (@reservation.user_id == current_user.id || current_user.is_admin?) || admin_signed_in? %> 
           <%= link_to "Editar", edit_reservation_path(@reservation) %>
           <%= link_to "Eliminar", reservation_path(@reservation), method: :delete, data: { confirm: "¿Estás seguro?" } %>
         <% end %>

@@ -13,24 +13,25 @@
 <%= form_for(@reservation) do |f| %>
     <div class="col-box">
     <label>Fecha de inicio</label>
-    <%= f.date_select :start_time, order: [:day, :month, :year] %>
-  
-
-
-    <label>Hora de inicio</label>
-    <div>
-      <%= f.time_select :start_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour, minute: @minutes.minute } %>
+    <div class="flex-time">
+      <div class="date">
+        <%= f.date_select :start_time, order: [:day, :month, :year] %>
+      </div>
+      <div class="hour">
+        <%= f.time_select :start_time, ignore_date: true, minute_step: 15, default: { hour: Time.now.hour, minute: @minutes.minute } %>
+      </div>
     </div>
   
  
     <label>Fecha de término</label>
-    <%= f.date_select :finish_time, order: [:day, :month, :year] %>
-  
-
- 
-    <label>Hora de término</label>
-    <%= f.time_select :finish_time, ignore_date: true, minute_step: 15, default: { hour: DateTime.now.hour, minute: @minutes.minute } %>
-  
+    <div class="flex-time">
+      <div class="date">
+        <%= f.date_select :finish_time, order: [:day, :month, :year] %>
+      </div>
+      <div class="hour">
+        <%= f.time_select :finish_time, ignore_date: true, minute_step: 15, default: { hour: Time.now.hour, minute: @minutes.minute } %>
+      </div>
+    </div>
 
     <% if (user_signed_in? && current_user.is_admin?) || admin_signed_in? %>
       <label>Socio</label>

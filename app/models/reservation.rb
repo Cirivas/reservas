@@ -31,21 +31,28 @@ class Reservation < ApplicationRecord
   end
 
   def not_on_same_date
-    reservations = Reservation.all
+    current_time = Time.now
+    reservations = Reservation.where('start_time >= ? and aeroplane_id = ?', current_time.to_s, aeroplane_id)
 
     reservations.each do |res|
-      if res.id != id && res.aeroplane_id == aeroplane_id
-        if res.start_time > start_time && res.start_time < finish_time
-          errors.add(:finish_time, ": material already reserved in that date")
-        end
+      # |sd --- res.sd ----- fd ---- res.fd|
+      if res.start_time < finish_time && finish_time < res.finish_time
+        errors.add(:finish_time, ": material already reserved in that date")
+      end
 
-        if res.finish_time > start_time && res.finish_time < finish_time
-          errors.add(:start_time, ": material already reserved in that date")
-        end
+      # |res.sd --- sd --- res.fd --- fd --- |
+      if res.start_time < start_time && start_time < res.finish_time
+        errors.add(:start_time, ": material already reserved in that date")
+      end
 
-        if res.start_time < start_time && res.finish_time > finish_time
-          errors.add(:start_time, ": material already reserved in that date")
-        end
+      # |res.sd --- sd --- fd --- res.fd|
+      if res.start_time < start_time && finish_time < res.finish_time
+        errors.add(:start_time, ": material already reserved in that date (contained)")
+      end
+
+      # |sd --- res.sd --- res.fd --- fd|
+      if start_time < res.start_time && res.finish_time < finish_time
+        errors.add(:finish_time, ": material already reserved in that date (contains)")
       end
     end
   end

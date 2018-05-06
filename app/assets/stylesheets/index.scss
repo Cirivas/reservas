@@ -337,3 +337,19 @@ a {
   display: flex;
   justify-content: space-around;
 }
+
+.flex-time {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+
+  .date {
+    display: flex;
+    width: 76%;
+  }
+
+  .hour {
+    display: flex;
+    width: 21%;
+  }
+}

@@ -21,6 +21,11 @@ class ReservationsController < ApplicationController
 
   def new
     @reservation = Reservation.new
+
+    if params[:start].present?
+      @reservation.start_time = params[:start]
+      @reservation.finish_time = params[:start]
+    end
   end
 
   def load_aeroplanes

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :reservations
-  resources :accounts, only: [:index, :create]
+  resources :accounts, only: [:index, :create, :destroy]
 
   get :load_aeroplanes, controller: :reservations
 

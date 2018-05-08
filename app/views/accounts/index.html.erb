@@ -2,9 +2,21 @@
 
 <ul>
   <% @accounts.each do |a| %>
-    <li><%= link_to a.created_at, a.file.url %></li>
+    <li><%= link_to a.created_at, a.file.url %></li> <p><%= link_to 'Eliminar', account_path(a), method: :delete, data: { confirm: '¿Estás seguro?' } %>
   <% end %>
 </ul>
+
+<% if @account.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@account.errors.count, "error") %> prohibited this aeroplane from being saved:</h2>
+
+    <ul>
+    <% @account.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <% if (user_signed_in? && current_user.is_admin?) || admin_signed_in? %>
   <h2>Subir cuenta</h2>

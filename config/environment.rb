@@ -16,4 +16,13 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
 end
 
 require 'carrierwave/orm/activerecord'
- 
+
+ActionMailer::Base.smtp_settings = {
+  :user_name => ENV['SENDGRID_USERNAME'],
+  :password => ENV['SENDGRID_PASSWORD'],
+  :domain => 'cua-reservas.herokuapp.com',
+  :address => 'smtp.sendgrid.net',
+  :port => 587,
+  :authentication => :plain,
+  :enable_starttls_auto => true
+}

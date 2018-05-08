@@ -67,7 +67,7 @@ class ReservationsController < ApplicationController
   end
 
   def edit
-    if user_signed_in? && (@reservation.user_id != current_user.id || !current_user.is_admin?)
+    if user_signed_in? && @reservation.user != current_user && !current_user.is_admin?
       redirect_to reservations_path
     end
   end

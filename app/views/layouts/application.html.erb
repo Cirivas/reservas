@@ -37,7 +37,7 @@
           <%= link_to 'Materiales', admin_aeroplanes_path %>
           <%= link_to 'Socios', admin_members_path %>
         <% end %>
-        <%= link_to 'Log-out', destroy_user_session_path, method: :delete %>
+        <%= link_to current_user.name + ': Log-out', destroy_user_session_path, method: :delete %>
       </div>
     <% end %>
 
@@ -46,7 +46,7 @@
           <%= link_to 'Reservas', reservations_path %>
           <%= link_to 'Materiales', admin_aeroplanes_path %>
           <%= link_to 'Socios', admin_members_path %>
-          <%= link_to 'Log-out', destroy_admin_session_path, method: :delete %>
+          <%= link_to 'Admin: Log-out', destroy_admin_session_path, method: :delete %>
         </div>
       <% end %>
     </div>

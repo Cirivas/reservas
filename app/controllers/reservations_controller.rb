@@ -32,18 +32,33 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    if user_signed_in?
+    qualified = false
+    if user_signed_in? && !current_user.is_admin?
       if current_user.is_qualified?(params[:reservation][:aeroplane_id])
         params[:reservation].delete(:instructor_id)
+        qualified = true
       end      
       @reservation = Reservation.new(reservation_params)
       @reservation.user_id = current_user.id 
-    else
+    elsif (user_signed_in? && current_user.is_admin?) || admin_signed_in? 
+      if User.find(params[:reservation][:user_id]).is_qualified?(params[:reservation][:aeroplane_id])
+        params[:reservation].delete(:instructor_id)
+        qualified = true
+      end
       @reservation = Reservation.new(reservation_params)
     end
     
     if @reservation.save
       flash[:success] = "Reserva creada correctamente"
+
+      if user_signed_in? && !current_user.is_admin?
+        ReservationMailer.with(user: current_user, reservation: @reservation).confirm_reservation.deliver_later
+        ReservationMailer.with(user: current_user, reservation: @reservation, instructor: User.find(params[:reservation][:instructor_id])).notify_instructor.deliver_later unless qualified
+      elsif (user_signed_in? && current_user.is_admin?) || admin_signed_in? 
+        ReservationMailer.with(user: User.find(params[:reservation][:user_id]), reservation: @reservation).confirm_reservation.deliver_later
+        ReservationMailer.with(user: User.find(params[:reservation][:user_id]), reservation: @reservation, instructor: User.find(params[:reservation][:instructor_id])).notify_instructor.deliver_later unless qualified
+      end
+
       redirect_to @reservation
     else
       minutes

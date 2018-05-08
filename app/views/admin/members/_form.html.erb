@@ -105,10 +105,10 @@
 
     <div class="grouped-buttons">
       <input type="button" class="btn btn-block" onclick="prevStep(3)" value="Atrás" />
-      <% if params[:action] == "new" %>
-        <%= f.submit "Crear socio", class: "btn btn-block btn-primary" %>
-      <% else %>
+      <% if params[:action] == "edit" %>
         <%= f.submit "Editar socio", class: "btn btn-block btn-primary" %>
+      <% else %>
+        <%= f.submit "Crear socio", class: "btn btn-block btn-primary" %>
       <% end %>
     </div>
   </div>

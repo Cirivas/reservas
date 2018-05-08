@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root 'reservations#index'
 
   devise_for :admins
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :reservations
+  resources :accounts, only: [:index, :create]
 
   get :load_aeroplanes, controller: :reservations
 

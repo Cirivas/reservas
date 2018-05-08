@@ -15,6 +15,21 @@ class ReservationMailer < ApplicationMailer
     mail(to: @instructor.email, subject: 'Confirmación de reserva')
   end
 
+  def confirm_change_reservation
+    @user = params[:user]
+    @reservation = params[:reservation]
+    @duration = formatted_duration((@reservation.finish_time - @reservation.start_time).to_i)
+    mail(to: @user.email, subject: 'Modificación de reserva')
+  end
+
+  def notify_change_instructor
+    @user = params[:user]
+    @instructor = params[:instructor]
+    @reservation = params[:reservation]
+    @duration = formatted_duration((@reservation.finish_time - @reservation.start_time).to_i)
+    mail(to: @instructor.email, subject: 'Modificación de reserva')
+  end
+
   private
 
   def formatted_duration(total_seconds)

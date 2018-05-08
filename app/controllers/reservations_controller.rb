@@ -73,19 +73,31 @@ class ReservationsController < ApplicationController
   end
   
   def update
-    if user_signed_in?
+    qualified = false
+    if user_signed_in? && !current_user.is_admin?
       if current_user.is_qualified?(params[:reservation][:aeroplane_id])
-        params[:reservation][:instructor_id] = nil
+        params[:reservation].delete(:instructor_id)
+        qualified = true
       end
-    else
+    elsif (user_signed_in? && current_user.is_admin?) || admin_signed_in? 
       user = User.find(params[:reservation][:user_id])
       if user.is_qualified?(params[:reservation][:aeroplane_id])
-        params[:reservation][:instructor_id] = nil
+        params[:reservation].delete(:instructor_id)
+        qualified = true
       end
     end
 
     if @reservation.update_attributes(reservation_params)
       flash[:success] = "Reserva actualizada correctamente"
+
+      if user_signed_in? && !current_user.is_admin?
+        ReservationMailer.with(user: current_user, reservation: @reservation).confirm_change_reservation.deliver_later
+        ReservationMailer.with(user: current_user, reservation: @reservation, instructor: User.find(params[:reservation][:instructor_id])).notify_change_instructor.deliver_later unless qualified
+      elsif (user_signed_in? && current_user.is_admin?) || admin_signed_in? 
+        ReservationMailer.with(user: User.find(params[:reservation][:user_id]), reservation: @reservation).confirm_change_reservation.deliver_later
+        ReservationMailer.with(user: User.find(params[:reservation][:user_id]), reservation: @reservation, instructor: User.find(params[:reservation][:instructor_id])).notify_change_instructor.deliver_later unless qualified
+      end
+
       redirect_to @reservation
     else
       minutes

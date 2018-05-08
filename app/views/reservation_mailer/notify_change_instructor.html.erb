@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Estimado/a <%= @instructor.name %></h1>
+    <p>El socio/alumno <%= @user.name %> ha realizado modificaciones a una reserva para la cuál no posee habilitación</p>
+    <p>Los nuevos detalles de la reserva son:</p>
+    <ul>
+      <li>Fecha inicio: <%= @reservation.start_time.strftime("%Y/%m/%d %H:%M") %></li>
+
+      <li>Fecha término: <%= @reservation.finish_time.strftime("%Y/%m/%d %H:%M") %></li>
+
+      <li>Material: <%= @reservation.aeroplane.plate %></li>
+
+      <li>Tiempo de reserva: <%= @duration %> </li>
+
+      <li>Tipo de vuelo: <%= @reservation.flight_type %></li>
+
+      <% if @reservation.route.present? %>
+        <li>Ruta: <%= @reservation.route %></li>
+      <% end %>
+    </ul>
+    
+    <p>Gracias por usar nuestro sistema</p>
+  </body>
+</html>

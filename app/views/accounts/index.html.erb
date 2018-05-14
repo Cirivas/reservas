@@ -2,7 +2,7 @@
 
 <ul>
   <% @accounts.each do |a| %>
-    <li><%= link_to a.created_at, a.file %></li> <p><%= link_to 'Eliminar', account_path(a), method: :delete, data: { confirm: '¿Estás seguro?' } %>
+    <li><%= link_to a.created_at, 'http:'+ a.file %></li> <p><%= link_to 'Eliminar', account_path(a), method: :delete, data: { confirm: '¿Estás seguro?' } %>
   <% end %>
 </ul>
 
@@ -23,7 +23,6 @@
 
   <%= form_for(@account, html: { class: 'directUpload', data: { 'form-data' => (@s3_direct_post.fields), 'url' => @s3_direct_post.url, 'host' => URI.parse(@s3_direct_post.url).host } }) do |f| %>
     <%= f.file_field :file %>
-    <%= f.submit %>
   <% end %>
 <% end %>
 
@@ -32,7 +31,6 @@ $(document).ready(function() {
   $('.directUpload').find("input:file").each(function(i, elem) {
     var fileInput    = $(elem);
     var form         = $(fileInput.parents('form:first'));
-    var submitButton = form.find('input[type="submit"]');
     var progressBar  = $("<div class='bar'></div>");
     var barContainer = $("<div class='progress'></div>").append(progressBar);
     fileInput.after(barContainer);
@@ -49,9 +47,7 @@ $(document).ready(function() {
         var progress = parseInt(data.loaded / data.total * 100, 10);
         progressBar.css('width', progress + '%')
       },
-      start: function (e) {
-        submitButton.prop('disabled', true);
-
+      start: function (e) {        
         progressBar.
           css('background', 'green').
           css('display', 'block').
@@ -59,7 +55,6 @@ $(document).ready(function() {
           text("Loading...");
       },
       done: function(e, data) {
-        submitButton.prop('disabled', false);
         progressBar.text("Uploading done");
 
         // extract key and generate URL from response
@@ -69,10 +64,9 @@ $(document).ready(function() {
         // create hidden field
         var input = $("<input />", { type:'hidden', name: fileInput.attr('name'), value: url })
         form.append(input);
+        form.submit();
       },
       fail: function(e, data) {
-        //submitButton.prop('disabled', false);        
-
         progressBar.
           css("background", "red").
           text("Failed");

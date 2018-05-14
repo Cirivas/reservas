@@ -5,6 +5,7 @@ class AccountsController < ApplicationController
   def index
     @accounts = Account.all
     @account = Account.new
+    @preview = @accounts.last
   end
 
   def create

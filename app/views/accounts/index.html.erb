@@ -1,10 +1,17 @@
 <h2>Cuentas</h2>
+<% if @accounts.present? %>
+  <iframe src="http://docs.google.com/gview?url=http:<%= @preview.file %>&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>
 
-<ul>
-  <% @accounts.each do |a| %>
-    <li><%= link_to a.created_at, 'http:'+ a.file %></li> <p><%= link_to 'Eliminar', account_path(a), method: :delete, data: { confirm: '¿Estás seguro?' } %>
-  <% end %>
-</ul>
+
+  <ul>
+    <% @accounts.each do |a| %>
+      <li><%= link_to a.created_at, 'http:'+ a.file %></li> <p><%= link_to 'Eliminar', account_path(a), method: :delete, data: { confirm: '¿Estás seguro?' } %>
+    <% end %>
+  </ul>
+
+<% end %>
+
+
 
 <% if @account.errors.any? %>
   <div id="error_explanation">

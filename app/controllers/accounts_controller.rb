@@ -1,5 +1,7 @@
 class AccountsController < ApplicationController
   before_action :authenticate_any!
+  before_action :set_s3_direct_post
+
   def index
     @accounts = Account.all
     @account = Account.new
@@ -34,5 +36,9 @@ class AccountsController < ApplicationController
 
   def account_params
     params.require(:account).permit(:file)
+  end
+
+  def set_s3_direct_post
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
   end
 end

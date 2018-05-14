@@ -15,4 +15,6 @@
  *= require index
  *= require reservations
  *= require members
+ *= require jquery.fileupload
+ *= require jquery.fileupload-ui
  */

@@ -1,40 +1,50 @@
 <h2>Cuentas</h2>
 <% if @accounts.present? %>
-  <iframe src="http://docs.google.com/gview?url=http:<%= @preview.file %>&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>
-
-
-  <ul>
-    <% @accounts.each do |a| %>
-      <li><%= link_to a.created_at, 'http:'+ a.file %></li> <p><%= link_to 'Eliminar', account_path(a), method: :delete, data: { confirm: '¿Estás seguro?' } %>
-    <% end %>
-  </ul>
-
-<% end %>
-
-
-
-<% if @account.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@account.errors.count, "error") %> prohibited this aeroplane from being saved:</h2>
-
-    <ul>
-    <% @account.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
+  <section class="accounts-list">
+    <ul class="accounts-ul">
+      <% @accounts.each do |a| %>
+        <li><button name="http:<%= a.file %>"><%= a.created_at.strftime("%d/%m/%Y") %></button> <p><%= link_to 'Eliminar', account_path(a), method: :delete, data: { confirm: '¿Estás seguro?' } %></p></li>
+      <% end %>
     </ul>
-  </div>
+
+    <div id="iframe-container">
+      <iframe class="iframe" src="http://docs.google.com/gview?url=http:<%= @preview.file %>&embedded=true" frameborder="0"></iframe>
+    </div>
+  </section>
 <% end %>
+
+
 
 <% if (user_signed_in? && current_user.is_admin?) || admin_signed_in? %>
-  <h2>Subir cuenta</h2>
+  <section>
+    <% if @account.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@account.errors.count, "error") %> prohibited this aeroplane from being saved:</h2>
 
-  <%= form_for(@account, html: { class: 'directUpload', data: { 'form-data' => (@s3_direct_post.fields), 'url' => @s3_direct_post.url, 'host' => URI.parse(@s3_direct_post.url).host } }) do |f| %>
-    <%= f.file_field :file %>
-  <% end %>
+        <ul>
+        <% @account.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <h2>Subir cuenta</h2>
+
+    <%= form_for(@account, html: { class: 'directUpload', data: { 'form-data' => (@s3_direct_post.fields), 'url' => @s3_direct_post.url, 'host' => URI.parse(@s3_direct_post.url).host } }) do |f| %>
+      <%= f.file_field :file %>
+    <% end %>
+  <section>
 <% end %>
 
 <script type="text/javascript">
 $(document).ready(function() {
+  $('ul > li > button').click(function(e){
+    var iframe_cont = $('#iframe-container');
+    iframe_cont.html('<iframe src=\"http://docs.google.com/gview?url=' + e.target.name + ' +&embedded=true\" class=\"iframe\" frameborder=\"0\"></iframe>');
+  });
+
+
   $('.directUpload').find("input:file").each(function(i, elem) {
     var fileInput    = $(elem);
     var form         = $(fileInput.parents('form:first'));

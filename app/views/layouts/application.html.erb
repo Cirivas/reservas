@@ -9,14 +9,9 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <!--<script
-    src="http://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>-->
 
     <!-- jQuery once -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-once/2.2.0/jquery.once.min.js"></script>
-    <script defer src="https://cdnjs.com/libraries/pdf.js"></script>
     <!-- Moment.js -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/locale/es.js"></script>
@@ -25,36 +20,77 @@
     <!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css" />-->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" />
 
+    
+
 
   </head>
 
   <body>
     
     <% if user_signed_in? %>
-      <div class="header">
+      <div id="side-menu" class="side-menu">
+        <div class="name">
+          <h2><%= current_user.name %></h2>
+          <a class="close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        </div>
         <%= link_to 'Reservas', reservations_path %>
         <% if current_user.is_admin? %>
           <%= link_to 'Materiales', admin_aeroplanes_path %>
           <%= link_to 'Socios', admin_members_path %>
         <% end %>
-        <%= link_to current_user.name + ': Log-out', destroy_user_session_path, method: :delete %>
+        <%= link_to 'Cuentas', accounts_path %>
+        <%= link_to 'Log-out', destroy_user_session_path, method: :delete %>
+      </div>
+      <span class="menuToggle" onclick="openNav()">☰</span>
+      <% flash.each do |key, value| %>
+        <%= content_tag :div, value, class: "flash #{key}" %>
+      <% end %>
+      <div id="main-content" class="main-content">    
+        <%= yield %>
+      </div>
+
+    <% elsif admin_signed_in? %>
+      <div id="side-menu" class="side-menu">
+        <div class="name">
+          <h2>Administrador</h2>
+          <a class="close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        </div>
+        <%= link_to 'Reservas', reservations_path %>
+        <%= link_to 'Materiales', admin_aeroplanes_path %>
+        <%= link_to 'Socios', admin_members_path %>
+        <%= link_to 'Cuentas', accounts_path %>
+        <%= link_to 'Log-out', destroy_admin_session_path, method: :delete %>
+      </div>
+      <span class="menuToggle" onclick="openNav()">☰</span>
+      <% flash.each do |key, value| %>
+        <%= content_tag :div, value, class: "flash #{key}" %>
+      <% end %>
+      <div id="main-content" class="main-content">    
+        <%= yield %>
+      </div>
+    <% else %>
+
+      <% flash.each do |key, value| %>
+        <%= content_tag :div, value, class: "flash full #{key}" %>
+      <% end %>
+      <div>    
+        <%= yield %>
       </div>
     <% end %>
+    
 
-      <% if admin_signed_in? %>
-        <div class="header">
-          <%= link_to 'Reservas', reservations_path %>
-          <%= link_to 'Materiales', admin_aeroplanes_path %>
-          <%= link_to 'Socios', admin_members_path %>
-          <%= link_to 'Admin: Log-out', destroy_admin_session_path, method: :delete %>
-        </div>
-      <% end %>
-    </div>
-    <% flash.each do |key, value| %>
-      <%= content_tag :div, value, class: "flash #{key}" %>
-    <% end %>
-    <div class="main-content">    
-      <%= yield %>
-    </div>
   </body>
 </html>
+
+<script type="text/javascript">
+  var url = window.location.pathname,
+      urlRegExp = new RegExp(url + '$');
+
+  console.log(url);
+  console.log(urlRegExp);
+  $('#side-menu a').each(function(){
+    if(urlRegExp.test(this.href.replace(/\/$/,''))){
+      $(this).addClass('active');
+    }
+  });
+</script>

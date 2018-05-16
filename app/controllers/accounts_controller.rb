@@ -3,9 +3,10 @@ class AccountsController < ApplicationController
   before_action :set_s3_direct_post
 
   def index
-    @accounts = Account.all
+    @accounts = Account.all.order(created_at: :desc)
     @account = Account.new
-    @preview = @accounts.last
+    @preview = @accounts.first
+    puts @preview.id
   end
 
   def create

@@ -1,0 +1,25 @@
+.accounts-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.accounts-ul {
+  width: 25%;
+  list-style-type: none;
+  padding-left: 0px;
+
+  button { 
+    
+  }
+
+}
+
+#iframe-container {
+  width: 75%;
+  margin: 0 10px;
+}
+
+.iframe {
+  width: 100%;
+  height: 500px;
+}

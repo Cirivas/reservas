@@ -3,7 +3,13 @@
   <section class="accounts-list">
     <ul class="accounts-ul">
       <% @accounts.each do |a| %>
-        <li><button name="http:<%= a.file %>"><%= a.created_at.strftime("%d/%m/%Y") %></button> <p><%= link_to 'Eliminar', account_path(a), method: :delete, data: { confirm: '¿Estás seguro?' } %></p></li>
+        <li>
+          <button name="http:<%= a.file %>"><%= a.created_at.strftime("%d/%m/%Y") %></button> 
+          <% if (user_signed_in? && current_user.is_admin?) || admin_signed_in? %>
+            <p><%= link_to 'Eliminar', account_path(a), method: :delete, data: { confirm: '¿Estás seguro?' } %></p>
+          <% end %>
+        </li>
+
       <% end %>
     </ul>
 

@@ -39,6 +39,7 @@
           <%= link_to 'Socios', admin_members_path %>
         <% end %>
         <%= link_to 'Cuentas', accounts_path %>
+        <%= link_to 'Sitio CUA', 'http://cua.cl' %>
         <%= link_to 'Log-out', destroy_user_session_path, method: :delete %>
       </div>
       <span class="menuToggle" onclick="openNav()">☰</span>
@@ -59,6 +60,7 @@
         <%= link_to 'Materiales', admin_aeroplanes_path %>
         <%= link_to 'Socios', admin_members_path %>
         <%= link_to 'Cuentas', accounts_path %>
+        <%= link_to 'Sitio CUA', 'http://cua.cl' %>
         <%= link_to 'Log-out', destroy_admin_session_path, method: :delete %>
       </div>
       <span class="menuToggle" onclick="openNav()">☰</span>
@@ -76,6 +78,7 @@
       <div>    
         <%= yield %>
       </div>
+      <%= link_to '< volver a CUA', 'http://cua.cl', class: "center" %>
     <% end %>
     
 

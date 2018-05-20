@@ -34,12 +34,8 @@
     </div>
 
     <% if (user_signed_in? && current_user.is_admin?) || admin_signed_in? %>
-      <label>Socio</label>
-      <% if user_signed_in? %>
-        <%= f.collection_select :user_id, User.all, :id, :name %>
-      <% else %>
-        <%= f.collection_select :user_id, User.all, :id, :name %>
-      <% end %>
+      <label>Socio</label>    
+      <%= f.collection_select :user_id, User.all, :id, :full_name %>
     <% end %>
   
 

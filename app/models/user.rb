@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :rememberable, :trackable, :validatable
 
   has_and_belongs_to_many :aeroplanes
-  has_many :reservations
-  has_many :coflights, class_name: 'Reservation', foreign_key: 'instructor_id'
+  has_many :reservations, dependent: :destroy
+  has_many :coflights, class_name: 'Reservation', foreign_key: 'instructor_id', dependent: :destroy
 
   validates :rut, presence: true, length: { minimum: 9, maximum: 10 }
   validates :membership_number, presence: true, length: { maximum: 5 }
@@ -39,5 +39,9 @@ class User < ApplicationRecord
       end
     end
     found
+  end
+
+  def full_name
+    "#{name} #{last_name}"
   end
 end

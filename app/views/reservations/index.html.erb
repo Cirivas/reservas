@@ -8,11 +8,6 @@
   <div id="calendar"></div>
 </div>
 
-<div class="container container-table reservations">
-  <table id="reservations-table">
-  </table>
-</div>
-
 <script type="text/javascript">
   $(document).ready(function(){
 
@@ -32,9 +27,6 @@
       events: "/reservations.json",
       eventClick: function(calEvent, jsEvent, view) {
         window.location.replace("/reservations/" + calEvent.id);
-      },
-      viewRender: function(view, element){
-        $.ajax({url: '/reservations.js?start='+view.start.format()+"&end="+view.end.format() })
       },
       dayClick: function(date, jsEvent, view) {
         window.location.replace("/reservations/new?start="+date.format());

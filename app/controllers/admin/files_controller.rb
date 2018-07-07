@@ -17,9 +17,9 @@ class Admin::FilesController < ApplicationController
       # Rut;Apellido socio;Nombre socio;Email;clave;celular;direccion;Pais;Nacimiento;Numero de socio;Numero Licencia;tipo de licencia;Permiso sistema;Tipo Socio;Estado Socio
       csv.each do |row|
         rut = row["Rut"].gsub(/\-/, '')
-        if row["Estado Socio"] == 'En vuelo'
+        if row["Estado Socio"] == 'En Vuelo'
           membership_state = 1
-        elsif row["Estado Socio"] == 'Fuera de vuelo'
+        elsif row["Estado Socio"] == 'Fuera de Vuelo'
           membership_state = 0
         else
           membership_state = -1

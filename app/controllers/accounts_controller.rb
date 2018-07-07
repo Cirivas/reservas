@@ -6,7 +6,6 @@ class AccountsController < ApplicationController
     @accounts = Account.all.order(created_at: :desc)
     @account = Account.new
     @preview = @accounts.first
-    puts @preview.id
   end
 
   def create

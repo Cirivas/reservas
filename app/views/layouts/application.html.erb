@@ -42,11 +42,11 @@
         <%= link_to 'Sitio CUA', 'http://cua.cl' %>
         <%= link_to 'Log-out', destroy_user_session_path, method: :delete %>
       </div>
-      <span class="menuToggle" onclick="openNav()">☰</span>
       <% flash.each do |key, value| %>
         <%= content_tag :div, value, class: "flash #{key}" %>
       <% end %>
       <div id="main-content" class="main-content">    
+        <span class="menuToggle" onclick="openNav()">☰</span>
         <%= yield %>
       </div>
 
@@ -61,13 +61,14 @@
         <%= link_to 'Socios', admin_members_path %>
         <%= link_to 'Cuentas', accounts_path %>
         <%= link_to 'Sitio CUA', 'http://cua.cl' %>
+        <%= link_to 'Carga masiva', admin_files_path %>
         <%= link_to 'Log-out', destroy_admin_session_path, method: :delete %>
       </div>
-      <span class="menuToggle" onclick="openNav()">☰</span>
       <% flash.each do |key, value| %>
         <%= content_tag :div, value, class: "flash #{key}" %>
       <% end %>
       <div id="main-content" class="main-content">    
+        <span class="menuToggle" onclick="openNav()">☰</span>
         <%= yield %>
       </div>
     <% else %>

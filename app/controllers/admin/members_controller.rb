@@ -12,6 +12,8 @@ class Admin::MembersController < ApplicationController
   # POST /admin/members
   def create
     params[:user][:password_confirmation] = params[:user][:password]
+    params[:user][:rut] = params[:user][:rut].gsub(/\.\-/, '')
+    
     @member = User.new(member_params)
 
     if @member.save
@@ -43,6 +45,8 @@ class Admin::MembersController < ApplicationController
         params[:user].delete(:password)
         params[:user].delete(:password_confirmation)
     end
+    
+    params[:user][:rut] = params[:user][:rut].gsub(/\.\-/, '')
     
     if @member.update_attributes(member_params)
       flash[:sucess] = "Socio actualizado correctamente"

@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :members
     resources :aeroplanes
+
+    resources :files, only: [:index, :create] do
+      collection do
+        post :materials
+      end
+    end
   end
 
   resources :reservations

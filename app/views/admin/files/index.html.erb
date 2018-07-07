@@ -1,0 +1,21 @@
+<h2 class="center">Carga de Socios</h2>
+
+<%= form_tag '/admin/files', { :multipart => true } do %>
+    <p>
+    <%= file_field_tag 'upload[file]' %>
+    </p>
+    <p>
+        <%= submit_tag "Upload" %>
+    </p>
+<% end %>
+
+<h2 class="center">Habilitaciones de Socios</h2>
+
+<%= form_tag '/admin/files/materials', { :multipart => true } do %>
+    <p>
+    <%= file_field_tag 'upload[file]' %>
+    </p>
+    <p>
+        <%= submit_tag "Upload" %>
+    </p>
+<% end %>

@@ -7,13 +7,13 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :coflights, class_name: 'Reservation', foreign_key: 'instructor_id', dependent: :destroy
 
-  validates :rut, presence: true, length: { minimum: 9, maximum: 10 }
+  validates :rut, presence: true, length: { minimum: 7, maximum: 10 }
   validates :membership_number, presence: true, length: { maximum: 5 }
   validates :email, presence: true, length: { maximum: 40 }
   validates :name, presence: true, length: { maximum: 25 }
   validates :last_name, presence: true, length: { maximum: 25 }
   validates :address, presence: true, length: { maximum: 50 }
-  validates :phone, presence: true, length: { maximum: 9 }
+  validates :phone, length: { maximum: 9 }
   validates :country, presence: true, length: { maximum: 20 }
   validates :birthdate, presence: true
   validates :license_type, presence: true

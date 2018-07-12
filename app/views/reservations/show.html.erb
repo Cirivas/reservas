@@ -9,7 +9,7 @@
 
       <p>Tiempo de reserva: <%= formatted_duration (@reservation.finish_time - @reservation.start_time).to_i %> </p>
 
-      <p>Socio: <%= @reservation.user.name %></p>
+      <p>Socio: <%= @reservation.user.full_name %></p>
 
       <p>Material: <%= @reservation.aeroplane.plate %></p>
 

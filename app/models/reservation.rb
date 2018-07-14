@@ -35,6 +35,7 @@ class Reservation < ApplicationRecord
     reservations = Reservation.where('start_time >= ? and aeroplane_id = ?', current_time.to_s, aeroplane_id)
 
     reservations.each do |res|
+      next if res.id == id
       # |sd --- res.sd ----- fd ---- res.fd|
       if res.start_time < finish_time && finish_time < res.finish_time
         errors.add(:finish_time, ": material already reserved in that date")

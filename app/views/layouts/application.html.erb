@@ -89,9 +89,7 @@
 <script type="text/javascript">
   var url = window.location.pathname,
       urlRegExp = new RegExp(url + '$');
-
-  console.log(url);
-  console.log(urlRegExp);
+      
   $('#side-menu a').each(function(){
     if(urlRegExp.test(this.href.replace(/\/$/,''))){
       $(this).addClass('active');

@@ -12,6 +12,7 @@
         <th>Número de socio</th>
         <th>Nombre</th>
         <th>Rol</th>
+        <th>Estado</th>
         <th colspan="3">Acciones</th>
       </tr>
     </thead>
@@ -23,6 +24,7 @@
           <td><%= m.membership_number %></td>
           <td><%= m.name %> <%= m.last_name %></td>
           <td><% if m.is_admin? %> Administrador <% else %> Usuario <% end %></td>
+          <td><% if m.membership_state == 1 %> En vuelo <% elsif m.membership_state == 0 %> Fuera de vuelo <% else %> Inactivo <% end %>
           <td><%= link_to 'Ver', admin_member_path(m) %></td>
           <td><%= link_to 'Editar', edit_admin_member_path(m) %></td>
           <td><%= link_to 'Eliminar', admin_member_path(m), method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -44,4 +44,12 @@ class User < ApplicationRecord
   def full_name
     "#{name} #{last_name}"
   end
+
+  def is_available?
+    if membership_state == 1
+      true
+    else
+      false
+    end
+  end
 end

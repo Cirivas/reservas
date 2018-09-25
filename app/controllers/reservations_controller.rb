@@ -3,6 +3,7 @@ class ReservationsController < ApplicationController
   before_action :authenticate_any!
   before_action :minutes, only: [:edit, :new]
   before_action :set_reservation, only: [:edit, :update, :show, :destroy]
+  before_action :check_availability, only: [:new, :edit, :update, :destroy]
 
   def index
     if params[:start].present?
@@ -162,6 +163,13 @@ class ReservationsController < ApplicationController
 
     if start_time.day > DateTime.now.day
       @times.pop
+    end
+  end
+
+  def check_availability
+    if current_user && !current_user.is_available?
+      flash[:error] = "No estás habilitado para realizar reservas"
+      redirect_to reservations_path
     end
   end
 end

@@ -47,12 +47,12 @@
     <% if params[:action] == 'new' %>
       <p id="instructor_selector">
         No posee habilitación, debe seleccionar instructor
-        <%= f.collection_select :instructor_id, User.where(license_type: 'Instructor'), :id, :name %>
+        <%= f.collection_select :instructor_id, User.where(license_type: 'Instructor'), :id, :full_name %>
       </p>
     <% else %>
       <p id="instructor_selector">
         No posee habilitación, instructor seleccionado
-        <%= f.collection_select :instructor_id, User.where(license_type: 'Instructor'), :id, :name %>
+        <%= f.collection_select :instructor_id, User.where(license_type: 'Instructor'), :id, :full_name %>
       </p>
     <% end %>
 

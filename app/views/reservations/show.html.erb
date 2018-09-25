@@ -14,7 +14,7 @@
       <p>Material: <%= @reservation.aeroplane.plate %></p>
 
       <% if @reservation.instructor.present? %> 
-        <p>Instructor: <%= @reservation.instructor.name %></p>
+        <p>Instructor: <%= @reservation.instructor.full_name %></p>
       <% end %>
 
       <p>Tipo de vuelo: <%= @reservation.flight_type %></p>
